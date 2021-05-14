@@ -1,0 +1,23 @@
+#
+# Copyright (c) 2020,2021 Oracle and/or its affiliates.
+#
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+#
+openapi: 3.0.1
+info:
+  title: "Helidon Sock Shop: Order API"
+  description: "Allows users to create and search orders"
+  version: 1.4.4
+  contact:
+    name: "Helidon Sock Shop"
+    url: https://github.com/oracle/coherence-helidon-sockshop-sample
+  license:
+    name: "The Universal Permissive License (UPL), Version 1.0"
+    url: https://github.com/oracle/coherence-helidon-sockshop-sample/blob/master/LICENSE.txt
+servers:
+  - url: http://api.coherence.sockshop.helidon.io/
+    description: "Sock Shop implementation with Coherence backend"
+externalDocs:
+  description: "Additional Documentation"
+  url: https://github.com/oracle/coherence-helidon-sockshop-sample/orders

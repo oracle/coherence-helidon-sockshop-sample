@@ -1,0 +1,55 @@
+name: Java CI
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *"
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'
+    - name: Cache Maven packages
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Build with Maven
+      env:
+        MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
+      run: mvn -B install --file pom.xml -s .github/maven/settings.xml -DenableAssertions=false
+    - name: Push container images
+      env:
+        REGISTRY_USER: ${{ secrets.RegistryUser }}
+        REGISTRY_PASSWORD: ${{ secrets.RegistryPassword }}
+      run: |
+        echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
+        mvn package --file pom.xml -s .github/maven/settings.xml -Pcontainer -DenableAssertions=false -DskipTests
+        docker push ghcr.io/coherence-helidon-sockshop-sample/carts:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/carts:2.2.0
+        docker push ghcr.io/coherence-helidon-sockshop-sample/catalog:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/catalog:2.2.0
+        docker push ghcr.io/coherence-helidon-sockshop-sample/orders:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/orders:2.2.0
+        docker push ghcr.io/coherence-helidon-sockshop-sample/payment:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/payment:2.2.0
+        docker push ghcr.io/coherence-helidon-sockshop-sample/shipping:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/shipping:2.2.0
+        docker push ghcr.io/coherence-helidon-sockshop-sample/users:latest
+        docker push ghcr.io/coherence-helidon-sockshop-sample/users:2.2.0
+      if: github.event_name == 'push'
