@@ -1,5 +1,12 @@
 ## Complete Application Deployment
 
+* [Additional Pre-Requisites](#additional-pre-requisites)
+* [Install Prometheus and Grafana](#install-prometheus-and-grafana)
+* [Expose Application via a Load Balancer](#expose-application-via-a-load-balancer)
+* [Install the Jaeger Operator](#install-the-jaeger-operator)
+* [Access Swagger](#access-swagger)
+* [Cleanup](#cleanup)  
+
 The Quick Start shows how you can run the application locally, but that may not
 be enough if you want to experiment by scaling individual services, look at tracing data in Jaeger,
 monitor services via Prometheus and Grafana, or make API calls directly via Swagger UI.

@@ -19,18 +19,8 @@ and showcase its features and best practices.
 * [Project Structure](#project-structure)
 * [Pre-Requisites](#pre-requisites)
 * [Quick Start](#quick-start)
-* [Complete Application Deployment](./doc/complete-application-deployment.md#complete-application-deployment)
-  * [Additional Pre-Requisites](./doc/complete-application-deployment.md#additional-pre-requisites)
-  * [Install Prometheus and Grafana](./doc/complete-application-deployment.md#install-prometheus-and-grafana)
-  * [Expose Application via a Load Balancer](./doc/complete-application-deployment.md#expose-application-via-a-load-balancer)
-  * [Install the Jaeger Operator](./doc/complete-application-deployment.md#install-the-jaeger-operator)
-  * [Access Swagger](./doc/complete-application-deployment.md#access-swagger)
-  * [Cleanup](./doc/complete-application-deployment.md#cleanup)  
-* [Development](./doc/development.md#development)
-  * [Checking Out the Project](./doc/development.md#checking-out-the-project)
-  * [Building the Code](./doc/development.md#building-the-code)
-  * [Creating Container Images](./doc/development.md#creating-container-images)
-  * [Running Modified Application](./doc/development.md#running-modified-application)
+* [Complete Application Deployment](./doc/complete-application-deployment.md)
+* [Development](./doc/development.md)
 * [License](#license)
 
 
@@ -107,10 +97,9 @@ We create a namespace called `sockshop`.
 
     ```bash
     $ kubectl create namespace sockshop
-    namespace/sockshop-coherence created
+    namespace/sockshop created
 
-    $ helm install --namespace sockshop --version 3.1.5 \
-                   coherence-operator coherence/coherence-operator
+    $ helm install coherence-operator coherence/coherence-operator
 
     $ kubectl apply -k k8s/coherence --namespace sockshop
     ```
@@ -118,8 +107,7 @@ We create a namespace called `sockshop`.
 > Note: The above helm command is for helm version 3, use the following command
 > If you are using helm version 2:
 > ```bash
-> $ helm install coherence/coherence-operator --version 3.1.5 \
->       --namespace sockshop --name coherence-operator   
+> $ helm install coherence/coherence-operator --name coherence-operator
 > ```
 
 This will merge all the files under the specified directory and create all Kubernetes 
@@ -182,6 +170,25 @@ $ for pod in carts catalog orders payment shipping users
     do kubectl scale coherence --namespace sockshop $pod --replicas=3
 done
 ```
+
+## Complete Application Deployment
+
+The Quick Start shows how you can run the application locally, but that may not
+be enough if you want to experiment by scaling individual services, look at tracing data in Jaeger,
+monitor services via Prometheus and Grafana, or make API calls directly via Swagger UI.
+
+To do all of the above, you need to deploy the services into a managed Kubernetes cluster
+in the cloud, by following the same set of steps described above (except for port forwarding,
+which is not necessary), and performing a few additional steps.
+
+ [Go to Complete Application Deployment section](./doc/complete-application-deployment.md)
+
+## Development
+
+If you want to modify the demo, you will need to check out the code for the project, build it
+locally, and (optionally) push new container images to the repository of your choice.
+
+ [Go to Development section](./doc/development.md)
 
 ## License
 
