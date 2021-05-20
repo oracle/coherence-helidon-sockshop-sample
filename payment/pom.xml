@@ -25,7 +25,7 @@
 
     <properties>
         <mainClass>io.helidon.microprofile.server.Main</mainClass>
-        <container.repo>ghcr.io/coherence-helidon-sockshop-sample</container.repo>
+        <container.repo>ghcr.io/coherence-sockshop-helidon</container.repo>
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 

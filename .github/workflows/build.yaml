@@ -40,16 +40,10 @@ jobs:
       run: |
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
         mvn package --file pom.xml -s .github/maven/settings.xml -Pcontainer -DenableAssertions=false -DskipTests
-        docker push ghcr.io/coherence-helidon-sockshop-sample/carts:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/carts:2.2.0
-        docker push ghcr.io/coherence-helidon-sockshop-sample/catalog:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/catalog:2.2.0
-        docker push ghcr.io/coherence-helidon-sockshop-sample/orders:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/orders:2.2.0
-        docker push ghcr.io/coherence-helidon-sockshop-sample/payment:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/payment:2.2.0
-        docker push ghcr.io/coherence-helidon-sockshop-sample/shipping:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/shipping:2.2.0
-        docker push ghcr.io/coherence-helidon-sockshop-sample/users:latest
-        docker push ghcr.io/coherence-helidon-sockshop-sample/users:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/carts:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/catalog:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/orders:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/payment:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/shipping:2.2.0
+        docker push ghcr.io/coherence-sockshop-helidon/users:2.2.0
       if: github.event_name == 'push'
