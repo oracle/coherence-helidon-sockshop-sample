@@ -99,7 +99,7 @@ We create a namespace called `sockshop`.
     $ kubectl create namespace sockshop
     namespace/sockshop created
 
-    $ helm install coherence-operator coherence/coherence-operator
+    $ helm install coherence-operator coherence/coherence-operator --namespace sockshop
 
     $ kubectl apply -k k8s/coherence --namespace sockshop
     ```
@@ -107,7 +107,7 @@ We create a namespace called `sockshop`.
 > Note: The above helm command is for helm version 3, use the following command
 > If you are using helm version 2:
 > ```bash
-> $ helm install coherence/coherence-operator --name coherence-operator
+> $ helm install coherence/coherence-operator --name coherence-operator --namespace sockshop
 > ```
 
 This will merge all the files under the specified directory and create all Kubernetes 
@@ -128,19 +128,8 @@ $ kubectl apply -f k8s/optional/original-front-end.yaml --namespace sockshop
 
 Port-forward to the `front-end` UI using the following
 
-**Mac/Linux**
-
 ```bash
-$ export FRONT_END_POD=$(kubectl get pods --namespace sockshop -o jsonpath='{.items[?(@.metadata.labels.app == "front-end")].metadata.name}')
-$ kubectl port-forward --namespace sockshop $FRONT_END_POD 8079:8079
-```
-
-**Windows**
-
-```bash
-kubectl get pods --namespace sockshop -o jsonpath='{.items[?(@.metadata.labels.app == "front-end")].metadata.name}' > pod.txt
-SET /P FRONT_END_POD=<pod.txt
-kubectl port-forward --namespace sockshop %FRONT_END_POD% 8079:8079
+$ kubectl port-forward --namespace sockshop service/front-end 8079:80
 ```
 
 > Note: If you have installed into a namespace then add the `--namespace` option to all `kubectl` commands in these instructions.
