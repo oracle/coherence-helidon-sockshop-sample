@@ -25,6 +25,13 @@ import static io.helidon.examples.sockshop.users.JsonHelpers.obj;
 import static javax.ws.rs.core.Response.Status.CONFLICT;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
+/*
+ * DISCLAIMER: This is a very naive and insecure implementation of user
+ * authentication. It should not be used as an example/blueprint to
+ * follow when implementing authentication in custom services. The code
+ * below exists purely to provide compatibility with the original front
+ * end written for SockShop
+ */
 @ApplicationScoped
 @Path("/")
 public class UserResource implements UserApi {
