@@ -65,53 +65,33 @@ top-level POM file which allows you to easily build the whole project and import
 into your favorite IDE, and a _bash_ script that makes it easy to checkout and update 
 all project repositories at once.
 
-## Pre-Requisites
-
-1. Install `helm`
-
-    You must have at least version `v2.14.3` of `helm`. See [here](https://helm.sh/docs/intro/install/)
-    for information on installing `helm` for your platform.
-    
-    > Note: The `helm` commands below are for helm 3.3.
-
-1. Add the following `helm` repositories
-
-    ```bash
-    $ helm repo add stable https://charts.helm.sh/stable
-    $ helm repo add coherence https://oracle.github.io/coherence-operator/charts
-    $ helm repo update
-    ```   
-
 ## Quick Start
 
 Kubernetes scripts depend on Kustomize, so make sure that you have a newer 
-version of `kubectl` that supports it (at least 1.14 or above).
-   
+version of `kubectl` that supports it (at least 1.16 or above).
+
 The easiest way to try the demo is to use Kubernetes deployment scripts from this repo. 
 
 If you do, you can simply run the following command from the `coherence-helidon-sockshop-sample` directory.
 
-We create a namespace called `sockshop`.
+* Install the Coherence Operator
+
+Install the Coherence Operator using the instructions in the [Coherence Operator Quick Start](https://oracle.github.io/coherence-operator/docs/latest/#/about/03_quickstart) documentation.
+
 
 * **Installing a Back-end**
 
+Create a namespace in Kubernetes called `sockshop`.
+
     ```bash
     $ kubectl create namespace sockshop
-    namespace/sockshop created
+    ```
+Install the back-end into the `sockshop` namespace.
 
-    $ helm install coherence-operator coherence/coherence-operator
-
+    ```bash
     $ kubectl apply -k k8s/coherence --namespace sockshop
     ```
-
-> Note: The above helm command is for helm version 3, use the following command
-> If you are using helm version 2:
-> ```bash
-> $ helm install coherence/coherence-operator --name coherence-operator
-> ```
-
-This will merge all the files under the specified directory and create all Kubernetes 
-resources defined by them, such as deployment and service for each microservice.
+The `-k` parameter above will use `kubectl` with `kustomize` to merge all the files under the specified directory and create all Kubernetes resources defined by them, such as deployments and services for each microservice.
 
 ### (Optional) Install the Original WeaveSocks Front End
 
@@ -161,13 +141,15 @@ $ kubectl delete -k k8s/coherence --namespace sockshop
 
 If you wish to scale the back-end you can issue the following command
 
+Scale only the orders microservice
 ```bash
-# Scale the orders statefulset
-$ kubectl scale coherence --namespace sockshop orders --replicas=3 
+$ kubectl --namespace sockshop scale coherence orders --replicas=3
+```
 
-# Scale all statefulsets 
-$ for pod in carts catalog orders payment shipping users
-    do kubectl scale coherence --namespace sockshop $pod --replicas=3
+Or alternatively scale all the microservices
+```bash
+$ for name in carts catalog orders payment shipping users
+    do kubectl --namespace sockshop scale coherence $name --replicas=3
 done
 ```
 

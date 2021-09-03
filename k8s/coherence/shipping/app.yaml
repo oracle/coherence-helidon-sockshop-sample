@@ -26,6 +26,9 @@ spec:
   jvm:
     memory:
       heapSize: 2g
+  coherence:
+    metrics:
+      enabled: true
   ports:
     - name: grpc
       port: 1408
@@ -36,5 +39,8 @@ spec:
       service:
         name: shipping-http
         port: 80
+      serviceMonitor:
+        enabled: true
+    - name: metrics
       serviceMonitor:
         enabled: true

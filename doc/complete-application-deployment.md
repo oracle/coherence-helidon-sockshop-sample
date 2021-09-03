@@ -25,70 +25,34 @@ which is not necessary), and performing a few additional steps.
 
 ### Install Prometheus and Grafana
 
-The following will install [Prometheus Operator](https://github.com/coreos/prometheus-operator/) into the
-`monitoring` namespace using `helm`.
+   Install the Prometheus Operator, as documented in the Prometheus Operator [Quick Start](https://prometheus-operator.dev/docs/prologue/quick-start/) page.
 
-1. Create the `monitoring` namespace
+   Prometheus can then be accessed as documented in the
+[Access Prometheus section of the Quick Start](https://prometheus-operator.dev/docs/prologue/quick-start/#access-prometheus) page.
 
-   If you wish to install Prometheus or Jaegar Operator you must create the `monitoring` namespace using the following:
+   **IMPORTANT**
+   If installing Prometheus into a RBAC enabled k8s cluster you may need to create the required RBAC resources
+as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/operator/rbac/) documentation.
 
-    ```bash
-    $ kubectl create namespace monitoring
-    ```
-
-1. Create Prometheus pre-requisites
-
-    ```bash
-    $ kubectl apply -f k8s/optional/prometheus-rbac.yaml  
-    ```
-
-1. Create Config Maps
-
-    ```bash
-    $ kubectl --namespace monitoring create configmap sockshop-grafana-dashboards --from-file=k8s/optional/grafana-dashboards/
-
-    $ kubectl --namespace monitoring label configmap sockshop-grafana-dashboards grafana_dashboard=1
-
-    $ kubectl --namespace monitoring create -f k8s/optional/grafana-datasource-config.yaml
-
-    $ kubectl --namespace monitoring label configmap sockshop-grafana-datasource grafana_datasource=1
-
-    $ kubectl --namespace monitoring create -f https://oracle.github.io/coherence-operator/dashboards/3.1.5/coherence-grafana-dashboards.yaml
-
-    $ kubectl --namespace monitoring label configmap coherence-grafana-dashboards grafana_dashboard=1
-    ```
-
-1. Install Prometheus Operator
-
-   > Note: If you have already installed Prometheus Operator before on this Kuberenetes Cluster
-   > then set `--set prometheusOperator.createCustomResource=false`.
-
-    ```bash
-    $ helm install --namespace monitoring --version 8.13.9 \
-        --set grafana.enabled=true \
-        --set prometheusOperator.createCustomResource=true \
-        --values k8s/optional/prometheus-values.yaml prometheus stable/prometheus-operator 
-    ````
-
-   For helm version 2 use the following:
-
-    ```bash
-    $ helm install --namespace monitoring --version 8.13.9 \
-        --set grafana.enabled=true --name prometheus \
-        --set prometheusOperator.createCustomResource=true \
-        --values k8s/optional/prometheus-values.yaml stable/prometheus-operator 
-    ```
 
    **IMPORTANT**
 
-   If you installed back-end before you installed Prometheus Operator, you must
-   run the following to delete and re-add the deployments for Prometheus to pickup the Pods.
+  If you installed the Sock Shop back-end into K8s before you installed Prometheus Operator, you must
+  run the following to delete and re-add the deployments for Prometheus to pick up the Pods. This is because the Coherence Operator will not have been able to create Prometheus `ServiceMonitor` resources before Prometheus was installed.
 
    ```bash 
    $ kubectl delete -k k8s/coherence --namespace sockshop
 
    $ kubectl apply -k k8s/coherence --namespace sockshop
    ```
+
+#### Import the Grafana Dashboards
+
+   A set of Grafana dashboards can be downloaded from the Coherence Operator GitHub repository and imported into Grafana.
+   Full instructions for importing dashboards into Grafana can be found in the
+   [Coherence Operator documentation](https://oracle.github.io/coherence-operator/docs/latest/#/metrics/030_importing).
+
+   There is an additional Sock Shop specific Grafana dashboard located in the project source  `k8s/optional/grafana-dashboards/sockshop-dashboard.json` This file can be manually imported into Grafana using the instructions in the [Add a Datasource](https://grafana.com/docs/grafana/latest/datasources/add-a-data-source/) section of the Grafana documentation.
 
 ### Expose Application via a Load Balancer
 
@@ -187,7 +151,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
 
 1. Exercise the Application and access Jaeger
 
-   Cessing the Jaeger UI at http://jaeger.core.sockshop.mycompany.com/,
+   Accessing the Jaeger UI at http://jaeger.core.sockshop.mycompany.com/,
    you should see the trace information similar to the images below, allowing you
    to see how long each individual operation in the call tree took.
 
@@ -223,7 +187,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
     $ envsubst -i k8s/optional/ingress.yaml| kubectl delete -f - --namespace sockshop
     ```
 
-1. Cleanup the ingress for Grafana and Prometheus
+2. Cleanup the ingress for Grafana and Prometheus
 
    If you installed Prometheus Operator, execute the following:
 
@@ -231,7 +195,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
     $ envsubst -i k8s/optional/ingress-grafana.yaml | kubectl delete --namespace monitoring -f -
     ```
 
-1. Remove the deployed services
+3. Remove the deployed services
 
    To cleanup the deployed services, execute the following:
 
@@ -240,7 +204,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
     $ kubectl delete -k k8s/coherence --namespace sockshop
     ```
 
-1. Remove the Load Balancer
+4. Remove the Load Balancer
 
    If you wish to remove your load balancer, execute the following:
 
@@ -248,7 +212,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
     $ kubectl delete -f k8s/optional/ingress-controller.yaml
     ```
 
-1. Remove Jaeger
+5. Remove Jaeger
 
     ```bash
     $ kubectl delete -f k8s/optional/jaeger-operator.yaml 
@@ -260,7 +224,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
     $ kubectl delete -f k8s/optional/jaeger.yaml --namespace sockshop
     ```
 
-1. Remove Swagger
+6. Remove Swagger
 
    Execute the following:
 
@@ -268,63 +232,7 @@ The following will install [Prometheus Operator](https://github.com/coreos/prome
    $ kubectl delete -f k8s/optional/swagger.yaml --namespace sockshop
     ```
 
-1. Remove Prometheus and Grafana
+7. Remove Prometheus and Grafana
 
-   To cleanup the service monitors, execute the following commands:
-
-    ```bash
-    $ envsubst -i k8s/optional/prometheus-service-monitor.yaml | kubectl delete --namespace monitoring -f -
-    ```
-
-   To remove the Prometheus Operator, execute the following:
-
-    ```bash
-    $ helm delete prometheus --namespace monitoring     
-
-    $ kubectl --namespace monitoring delete configmap sockshop-grafana-dashboards
-
-    $ kubectl --namespace monitoring delete configmap coherence-grafana-dashboards
-
-    $ kubectl --namespace monitoring delete configmap sockshop-grafana-datasource
-
-    $ kubectl --namespace monitoring delete -f k8s/optional/grafana-datasource-config.yaml
-
-    $ kubectl delete -f k8s/optional/prometheus-rbac.yaml
-    ```
-
-   For helm version 2 use the following:
-
-    ```bash
-    $ helm delete prometheus --purge
-    ```
-
-   > Note: You can optionally delete the Prometheus Operator Custom Resource Definitions
-   > (CRD's) if you are not going to install Prometheus Operator again.
-
-   ```bash
-   $ kubectl delete crd alertmanagers.monitoring.coreos.com 
-   $ kubectl delete crd podmonitors.monitoring.coreos.com
-   $ kubectl delete crd prometheuses.monitoring.coreos.com
-   $ kubectl delete crd prometheusrules.monitoring.coreos.com 
-   $ kubectl delete crd prometheusrules.monitoring.coreos.com 
-   $ kubectl delete crd servicemonitors.monitoring.coreos.com 
-   $ kubectl delete crd thanosrulers.monitoring.coreos.com 
-   ```
-
-   A shorthand way of doing this if you are running Linux/Mac is:
-   ```bash
-   $ kubectl get crds --namespace monitoring | grep monitoring.coreos.com | awk '{print $1}' | xargs kubectl delete crd
-   ```
-
-1. Remove the Coherence Operator
-
-    ```bash
-    $ helm delete coherence-operator --namespace sockshop
-    ```
-
-   For helm version 2 use the following:
-
-    ```bash
-    $ helm delete coherence-operator --purge
-    ```
+   To remove the Prometheus Operator follow the instructions in the [Remove kube-prometheus](https://prometheus-operator.dev/docs/prologue/quick-start/#remove-kube-prometheus) section of the Prometheus Operator Quick Start.
 
