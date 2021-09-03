@@ -26,11 +26,17 @@ spec:
   jvm:
     memory:
       heapSize: 2g
+  coherence:
+    metrics:
+      enabled: true
   ports:
     - name: http
       port: 7001
       service:
         name: carts
         port: 80
+      serviceMonitor:
+        enabled: true
+    - name: metrics
       serviceMonitor:
         enabled: true
