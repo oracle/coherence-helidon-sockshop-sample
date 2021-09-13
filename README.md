@@ -85,13 +85,14 @@ Create a namespace in Kubernetes called `sockshop`.
 
     ```bash
     $ kubectl create namespace sockshop
+    namespace/sockshop created
     ```
+
 Install the back-end into the `sockshop` namespace.
 
     ```bash
     $ kubectl apply -k k8s/coherence --namespace sockshop
     ```
-The `-k` parameter above will use `kubectl` with `kustomize` to merge all the files under the specified directory and create all Kubernetes resources defined by them, such as deployments and services for each microservice.
 
 ### (Optional) Install the Original WeaveSocks Front End
 
@@ -108,19 +109,8 @@ $ kubectl apply -f k8s/optional/original-front-end.yaml --namespace sockshop
 
 Port-forward to the `front-end` UI using the following
 
-**Mac/Linux**
-
 ```bash
-$ export FRONT_END_POD=$(kubectl get pods --namespace sockshop -o jsonpath='{.items[?(@.metadata.labels.app == "front-end")].metadata.name}')
-$ kubectl port-forward --namespace sockshop $FRONT_END_POD 8079:8079
-```
-
-**Windows**
-
-```bash
-kubectl get pods --namespace sockshop -o jsonpath='{.items[?(@.metadata.labels.app == "front-end")].metadata.name}' > pod.txt
-SET /P FRONT_END_POD=<pod.txt
-kubectl port-forward --namespace sockshop %FRONT_END_POD% 8079:8079
+$ kubectl port-forward --namespace sockshop service/front-end 8079:80
 ```
 
 > Note: If you have installed into a namespace then add the `--namespace` option to all `kubectl` commands in these instructions.
