@@ -12,7 +12,7 @@ spec:
 #  cluster: SockShop
   role: Shipping
   replicas: 1
-  image: ghcr.io/coherence-sockshop-helidon/shipping:2.2.0
+  image: ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.3.3
   imagePullPolicy: IfNotPresent
   env:
     - name: TRACING_HOST

@@ -14,26 +14,26 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>2.2.0</version>
+        <version>2.3.3</version>
         <relativePath/>
     </parent>
 
     <groupId>io.helidon.examples.sockshop</groupId>
     <artifactId>carts</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>2.3.3</version>
 
     <name>${project.artifactId}</name>
     <description>Shopping Cart service for Helidon Sock Shop demo application</description>
 
     <properties>
-        <mainClass>io.helidon.microprofile.server.Main</mainClass>
-        <container.repo>ghcr.io/coherence-sockshop-helidon</container.repo>
+        <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
+        <container.repo>ghcr.io/oracle/coherence-helidon-sockshop</container.repo>
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 
         <!-- dependencies -->
-        <version.lib.coherence>21.06-M2</version.lib.coherence>
+        <version.lib.coherence>21.06.1</version.lib.coherence>
         <version.lib.lombok>1.18.18</version.lib.lombok>
         <version.lib.junit>5.7.1</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
@@ -181,7 +181,7 @@
                                 </image>
                             </from>
                             <to>
-                                <image>${container.repo}/${project.artifactId}</image>
+                                <image>${container.repo}-${project.artifactId}</image>
                                 <tags>
                                     <tag>${container.version}</tag>
                                 </tags>
