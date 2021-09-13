@@ -12,7 +12,7 @@ spec:
 #  cluster: SockShop
   role: Payment
   replicas: 1
-  image: ghcr.io/coherence-sockshop-helidon/payment:2.2.0
+  image: ghcr.io/oracle/coherence-helidon-sockshop-payment:2.3.3
   imagePullPolicy: IfNotPresent
   env:
     - name: TRACING_HOST
@@ -26,6 +26,9 @@ spec:
   jvm:
     memory:
       heapSize: 2g
+  coherence:
+    metrics:
+      enabled: true
   ports:
     - name: grpc
       port: 1408
@@ -36,5 +39,8 @@ spec:
       service:
         name: payment-http
         port: 80
+      serviceMonitor:
+        enabled: true
+    - name: metrics
       serviceMonitor:
         enabled: true

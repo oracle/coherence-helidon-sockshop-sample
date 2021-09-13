@@ -14,23 +14,23 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>2.2.0</version>
+        <version>2.3.3</version>
         <relativePath/>
     </parent>
 
     <groupId>io.helidon.examples.sockshop</groupId>
     <artifactId>shipping</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>2.3.3</version>
 
     <properties>
-        <mainClass>io.helidon.microprofile.server.Main</mainClass>
-        <container.repo>ghcr.io/coherence-sockshop-helidon</container.repo>
+        <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
+        <container.repo>ghcr.io/oracle/coherence-helidon-sockshop</container.repo>
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 
         <!-- dependencies -->
-        <version.lib.coherence>21.06-M2</version.lib.coherence>
+        <version.lib.coherence>21.06.1</version.lib.coherence>
         <version.lib.lombok>1.18.18</version.lib.lombok>
         <version.lib.junit>5.7.1</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
@@ -38,7 +38,7 @@
         <version.plugin.surefire>2.22.2</version.plugin.surefire>
         <version.plugin.failsafe>2.22.2</version.plugin.failsafe>
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
-        <version.plugin.jib>2.7.1</version.plugin.jib>
+        <version.plugin.jib>3.1.4</version.plugin.jib>
     </properties>
 
     <repositories>
@@ -89,7 +89,7 @@
         </dependency>
         <dependency>
             <groupId>com.oracle.coherence.ce</groupId>
-            <artifactId>coherence-mp-metrics</artifactId>
+            <artifactId>coherence-metrics</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
@@ -194,7 +194,7 @@
                                 <image>gcr.io/distroless/java@sha256:9d4092ba5e1c9dc4d1490fdead1dd7ea5c64e635b729fee11a6af55f51b337f8</image>
                             </from>
                             <to>
-                                <image>${container.repo}/${project.artifactId}</image>
+                                <image>${container.repo}-${project.artifactId}</image>
                                 <tags>
                                     <tag>${container.version}</tag>
                                 </tags>

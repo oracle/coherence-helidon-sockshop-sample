@@ -271,7 +271,7 @@ find a copy in the Helidon GitHub repository:
 
 https://github.com/oracle/helidon/blob/2.2.0/THIRD_PARTY_LICENSES.txt
 
-Or in the Helidon artifact: io.helidon.licensing:helidon-licensing:2.2.0
+Or in the Helidon artifact: io.helidon.licensing:helidon-licensing:2.3.3
 
 ***********************
 Coherence CE

@@ -4,7 +4,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
 #
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: sockshop-ingress
@@ -14,59 +14,84 @@ spec:
     http:
       paths:
       - backend:
-          serviceName: front-end
-          servicePort: 80
+          service:
+            name: front-end
+            port:
+              number: 80
   - host: jaeger.${SOCKSHOP_BACKEND:=core}.${SOCKSHOP_DOMAIN:=sockshop.helidon.io}
     http:
       paths:
       - backend:
-          serviceName: jaeger-query
-          servicePort: 16686
+          service:
+            name: jaeger-query
+            port:
+             number: 16686
   - host: api.${SOCKSHOP_BACKEND:=core}.${SOCKSHOP_DOMAIN:=sockshop.helidon.io}
     http:
       paths:
         - path: /carts
           backend:
-            serviceName: carts
-            servicePort: 80
+            service:
+              name: carts
+              port:
+                number: 80
         - path: /catalogue
           backend:
-            serviceName: catalogue
-            servicePort: 80
+            service:
+              name: catalogue
+              port:
+                number: 80
         - path: /orders
           backend:
-            serviceName: orders
-            servicePort: 80
+            service:
+              name: orders
+              port:
+                name: http
+                number: 80
         - path: /paymentAuth
           backend:
-            serviceName: payment-http
-            servicePort: 80
+            service:
+              name: payment-http
+              port:
+                number: 80
         - path: /shipping
           backend:
-            serviceName: shipping-http
-            servicePort: 80
+            service:
+              name: shipping-http
+              port:
+                number: 80
         - path: /login
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80
         - path: /register
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80
         - path: /customers
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80s
         - path: /addresses
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80
         - path: /cards
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80
 ---
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
@@ -79,29 +104,43 @@ spec:
       paths:
         - path: /swagger(/|$)(.*)
           backend:
-            serviceName: swagger
-            servicePort: 80
+            service:
+              name: swagger
+              port:
+                number: 80
         - path: /carts(/|$)(.*)
           backend:
-            serviceName: carts
-            servicePort: 80
+            service:
+              name: carts
+              port:
+                number: 80
         - path: /catalogue(/|$)(.*)
           backend:
-            serviceName: catalogue
-            servicePort: 80
+            service:
+              name: catalogue
+              port:
+                number: 80
         - path: /orders(/|$)(.*)
           backend:
-            serviceName: orders
-            servicePort: 80
+            service:
+              name: orders
+              port:
+                number: 80
         - path: /payments(/|$)(.*)
           backend:
-            serviceName: payment-http
-            servicePort: 80
+            service:
+              name: payment-http
+              port:
+                number: 80
         - path: /shipping(/|$)(.*)
           backend:
-            serviceName: shipping-http
-            servicePort: 80
+            service:
+              name: shipping-http
+              port:
+                number: 80
         - path: /users(/|$)(.*)
           backend:
-            serviceName: user
-            servicePort: 80
+            service:
+              name: user
+              port:
+                number: 80
