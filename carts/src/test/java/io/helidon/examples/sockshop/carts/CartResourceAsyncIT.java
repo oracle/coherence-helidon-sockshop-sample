@@ -8,10 +8,12 @@
 package io.helidon.examples.sockshop.carts;
 
 import javax.enterprise.inject.spi.CDI;
+import org.junit.jupiter.api.Disabled;
 
 /**
  * Integration tests for {@link io.helidon.examples.sockshop.carts.CartResourceAsync}.
  */
+@Disabled
 public class CartResourceAsyncIT extends CartResourceIT {
     protected String getBasePath() {
         return "/carts-async";

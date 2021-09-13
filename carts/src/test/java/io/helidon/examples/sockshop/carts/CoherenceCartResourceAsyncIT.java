@@ -7,9 +7,12 @@
 
 package io.helidon.examples.sockshop.carts;
 
+import org.junit.jupiter.api.Disabled;
+
 /**
  * Integration tests for {@link io.helidon.examples.sockshop.carts.CartRepository},
  * using Coherence for persistence.
  */
+@Disabled
 public class CoherenceCartResourceAsyncIT extends CartResourceAsyncIT {
 }
