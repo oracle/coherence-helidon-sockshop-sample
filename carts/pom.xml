@@ -14,14 +14,14 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>2.2.2</version>
+        <version>2.2.0</version>
         <relativePath/>
     </parent>
 
     <groupId>io.helidon.examples.sockshop</groupId>
     <artifactId>carts</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.2</version>
+    <version>2.2.0</version>
 
     <name>${project.artifactId}</name>
     <description>Shopping Cart service for Helidon Sock Shop demo application</description>
