@@ -29,7 +29,7 @@
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 
-        <version.lib.coherence>21.06.1</version.lib.coherence>
+        <version.lib.coherence>21.06.2</version.lib.coherence>
         <version.lib.lombok>1.18.18</version.lib.lombok>
         <version.lib.junit>5.7.1</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
@@ -76,11 +76,6 @@
         <dependency>
             <groupId>com.oracle.coherence.ce</groupId>
             <artifactId>coherence-cdi-server</artifactId>
-            <version>${version.lib.coherence}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle.coherence.ce</groupId>
-            <artifactId>coherence-metrics</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
