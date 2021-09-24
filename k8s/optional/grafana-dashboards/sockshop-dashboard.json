@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -21,7 +21,7 @@
   "panels": [
     {
       "content": "\n# Sockshop Dashboard for namespace: $Namespace\n\n\n\nPlease select the namespace above to view details for for that namespace.\n\n\n",
-      "datasource": null,
+      "datasource": "prometheus",
       "gridPos": {
         "h": 4,
         "w": 24,
@@ -45,7 +45,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "format": "none",
       "gauge": {
@@ -100,7 +100,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"})",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"})",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -131,7 +131,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 3,
       "description": "",
       "format": "none",
@@ -187,7 +187,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_rate_per_second{namespace=~\"$Namespace\"} * 60)",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_rate_per_second{namespace=~\"$Namespace\"} * 60)",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -219,7 +219,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 2,
       "description": "",
       "format": "s",
@@ -275,7 +275,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"})  ",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"})  ",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -307,7 +307,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "format": "none",
       "gauge": {
@@ -362,7 +362,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -394,7 +394,7 @@
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
       ],
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "format": "none",
       "gauge": {
@@ -449,7 +449,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"}",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"}",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -472,7 +472,7 @@
       "valueName": "current"
     },
     {
-      "datasource": null,
+      "datasource": "prometheus",
       "description": "",
       "gridPos": {
         "h": 7,
@@ -517,7 +517,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} / (application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} + application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"})",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} / (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} + application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -534,7 +534,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "description": "",
       "fill": 1,
@@ -573,7 +573,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} - (application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} offset $__interval)",
           "instant": false,
           "interval": "",
           "legendFormat": "Orders",
@@ -628,7 +628,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "description": "",
       "fill": 1,
@@ -675,14 +675,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} - (application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} offset $__interval)",
           "instant": false,
           "interval": "",
           "legendFormat": "Payment Successes",
           "refId": "A"
         },
         {
-          "expr": "application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} - (application_io_helidon_examples_sockshop_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} offset $__interval)",
           "instant": false,
           "interval": "",
           "legendFormat": "Payment Failures",
@@ -732,7 +732,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "prometheus",
       "gridPos": {
         "h": 9,
         "w": 12,
@@ -773,7 +773,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_min_seconds{namespace=~\"$Namespace\"}",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_min_seconds{namespace=~\"$Namespace\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -781,7 +781,7 @@
           "refId": "B"
         },
         {
-          "expr": "application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"}",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -789,7 +789,7 @@
           "refId": "C"
         },
         {
-          "expr": "application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_max_seconds{namespace=~\"$Namespace\"}",
+          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_max_seconds{namespace=~\"$Namespace\"}",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -807,7 +807,7 @@
       "bars": true,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": "prometheus",
       "decimals": 0,
       "description": "",
       "fill": 1,
@@ -845,7 +845,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vendor_grpc_requests_count_total{namespace=~\"$Namespace\"} - (vendor_grpc_requests_count_total{namespace=~\"$Namespace\"} offset $__interval) > 0",
+          "expr": "vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"} - (vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"} offset $__interval) > 0",
           "instant": false,
           "interval": "",
           "legendFormat": "Role: {{role}}",
@@ -905,8 +905,8 @@
         "allValue": null,
         "current": {
         },
-        "datasource": "Prometheus",
-        "definition": "label_values(application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_seconds, namespace)",
+        "datasource": "prometheus",
+        "definition": "label_values(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds, namespace)",
         "hide": 0,
         "includeAll": false,
         "index": -1,
@@ -914,7 +914,7 @@
         "multi": false,
         "name": "Namespace",
         "options": [],
-        "query": "label_values(application_io_helidon_examples_sockshop_orders_OrderResource_newOrder_seconds, namespace)",
+        "query": "label_values(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds, namespace)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
