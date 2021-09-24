@@ -1,10 +1,10 @@
 # Shipping Service
 
 The Shipping Service contains service implementation, including the
-[domain model](./src/main/java/io/helidon/examples/sockshop/shipping/Shipment.java),
-[REST API](./src/main/java/io/helidon/examples/sockshop/shipping/ShippingResource.java), as well as the
-[data repository abstraction](./src/main/java/io/helidon/examples/sockshop/shipping/ShipmentRepository.java)
-and its [Coherence](https://coherence.java.net/) [implementation](./src/main/java/io/helidon/examples/sockshop/shipping/CoherenceShipmentRepository.java).
+[domain model](src/main/java/com/oracle/coherence/examples/sockshop/helidon/shipping/Shipment.java),
+[REST API](src/main/java/com/oracle/coherence/examples/sockshop/helidon/shipping/ShippingResource.java), as well as the
+[data repository abstraction](src/main/java/com/oracle/coherence/examples/sockshop/helidon/shipping/ShipmentRepository.java)
+and its [Coherence](https://coherence.java.net/) [implementation](src/main/java/com/oracle/coherence/examples/sockshop/helidon/shipping/CoherenceShipmentRepository.java).
 
 ## API
 

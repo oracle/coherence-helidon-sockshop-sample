@@ -1,1 +1,1 @@
-io.helidon.examples.sockshop.orders.CdiMocks
+com.oracle.coherence.examples.sockshop.helidon.orders.CdiMocks
