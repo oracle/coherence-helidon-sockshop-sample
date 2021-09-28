@@ -18,7 +18,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>io.helidon.examples.sockshop</groupId>
+    <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>catalog</artifactId>
     <packaging>jar</packaging>
     <version>2.2.0</version>

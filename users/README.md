@@ -4,10 +4,10 @@ The Users Service covers user account storage, provide user login, register and
 retrieval for user, cards and addresses.
 
 It contains service implementation, including
-[domain model](./src/main/java/io/helidon/examples/sockshop/users/User.java),
-[REST API](./src/main/java/io/helidon/examples/sockshop/users/UserResource.java),
-as well as the [data repository abstraction](./src/main/java/io/helidon/examples/sockshop/users/UserRepository.java)
-and its [Coherence](https://coherence.java.net/) [implementation](src/main/java/io/helidon/examples/sockshop/users/CoherenceUserRepository.java).
+[domain model](src/main/java/com/oracle/coherence/examples/sockshop/helidon/users/User.java),
+[REST API](src/main/java/com/oracle/coherence/examples/sockshop/helidon/users/UserResource.java),
+as well as the [data repository abstraction](src/main/java/com/oracle/coherence/examples/sockshop/helidon/users/UserRepository.java)
+and its [Coherence](https://coherence.java.net/) [implementation](src/main/java/com/oracle/coherence/examples/sockshop/helidon/users/CoherenceUserRepository.java).
 
 ## API
 

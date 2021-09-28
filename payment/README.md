@@ -1,10 +1,10 @@
 # Payment Service
 
 The Payment Service contains service implementation, including the
-[domain model](./src/main/java/io/helidon/examples/sockshop/payment/Authorization.java),
-[REST API](./src/main/java/io/helidon/examples/sockshop/payment/PaymentResource.java), as well as the
-[data repository abstraction](./src/main/java/io/helidon/examples/sockshop/payment/PaymentRepository.java)
-and its [Coherence](https://coherence.java.net/) [backend](src/main/java/io/helidon/examples/sockshop/payment/CoherencePaymentRepository.java).
+[domain model](src/main/java/com/oracle/coherence/examples/sockshop/helidon/payment/Authorization.java),
+[REST API](src/main/java/com/oracle/coherence/examples/sockshop/helidon/payment/PaymentResource.java), as well as the
+[data repository abstraction](src/main/java/com/oracle/coherence/examples/sockshop/helidon/payment/PaymentRepository.java)
+and its [Coherence](https://coherence.java.net/) [backend](src/main/java/com/oracle/coherence/examples/sockshop/helidon/payment/CoherencePaymentRepository.java).
 
 ## API
 

@@ -1,10 +1,10 @@
 # Orders Service
 
 The Orders Service contains service implementation, including the
-[domain model](./src/main/java/io/helidon/examples/sockshop/orders/Order.java),
-[REST API](./src/main/java/io/helidon/examples/sockshop/orders/OrderResource.java), as well as the
-[data repository abstraction](./src/main/java/io/helidon/examples/sockshop/orders/OrderRepository.java)
-and its [Coherence](https://coherence.java.net/) [backend](src/main/java/io/helidon/examples/sockshop/orders/CoherenceOrderRepository.java).
+[domain model](src/main/java/com/oracle/coherence/examples/sockshop/helidon/orders/Order.java),
+[REST API](src/main/java/com/oracle/coherence/examples/sockshop/helidon/orders/OrderResource.java), as well as the
+[data repository abstraction](src/main/java/com/oracle/coherence/examples/sockshop/helidon/orders/OrderRepository.java)
+and its [Coherence](https://coherence.java.net/) [backend](src/main/java/com/oracle/coherence/examples/sockshop/helidon/orders/CoherenceOrderRepository.java).
 
 ## API
 
