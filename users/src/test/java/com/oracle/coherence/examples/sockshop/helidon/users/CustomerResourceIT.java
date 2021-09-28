@@ -69,7 +69,7 @@ public class CustomerResourceIT {
     public void testAllCustomers() {
         when().
             get("/customers").
-        then().log().all().
+        then().
             statusCode(200).
                 body("size()", is(1));
     }
@@ -78,7 +78,7 @@ public class CustomerResourceIT {
     void testGetCustomer() {
         when().
             get("/customers/{id}", "user").
-        then().log().all().
+        then().
             statusCode(200).
             body("firstName", is("Test"));
     }
