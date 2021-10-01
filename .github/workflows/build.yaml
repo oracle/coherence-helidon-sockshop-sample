@@ -40,10 +40,10 @@ jobs:
       run: |
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
         mvn package --file pom.xml -s .github/maven/settings.xml -Pcontainer -DenableAssertions=false -DskipTests
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.0
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.0
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.0
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.0
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.0
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.0
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:1.0.0-SNAPSHOT
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:1.0.0-SNAPSHOT
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:1.0.0-SNAPSHOT
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:1.0.0-SNAPSHOT
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:1.0.0-SNAPSHOT
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:1.0.0-SNAPSHOT
       if: github.event_name == 'push'
