@@ -1,11 +1,8 @@
 name: Java CI
 
 on:
-  push:
-    branches:
-      - release
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
+  release:
+    types: [published]
 
 jobs:
   release:
@@ -24,7 +21,7 @@ jobs:
       env:
         REGISTRY_USER: ${{ github.actor }}
         REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        VERSION: ${{ github.ref }}
+        VERSION: ${GITHUB_REF:10}
       run: |
         echo $VERSION
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
@@ -35,15 +32,3 @@ jobs:
         docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:$VERSION
         docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:$VERSION
         docker push ghcr.io/oracle/coherence-helidon-sockshop-users:$VERSION
-    - name: Create Release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Coherence version: 21.06.2
-          Helidon version: 2.2.0
-        draft: true
-        prerelease: false
