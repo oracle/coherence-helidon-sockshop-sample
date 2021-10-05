@@ -9,26 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: '11'
-    - name: Build
-      env:
-        MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
-      run: mvn -B install --file pom.xml
+#    - name: Set up JDK
+#      uses: actions/setup-java@v1
+#      with:
+#        java-version: '11'
+#    - name: Build
+#      env:
+#        MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
+#      run: mvn -B install --file pom.xml
     - name: Push container images
       env:
         REGISTRY_USER: ${{ github.actor }}
         REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        VERSION: ${GITHUB_REF:11}
+        VERSION: ${{ github.ref:11 }}
       run: |
         echo $VERSION
-        echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
-        mvn -B package --file pom.xml -Pcontainer -DskipTests
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:$VERSION
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:$VERSION
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:$VERSION
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:$VERSION
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:$VERSION
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:$VERSION
+#        echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
+#        mvn -B package --file pom.xml -Pcontainer -DskipTests
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:$VERSION
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:$VERSION
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:$VERSION
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:$VERSION
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:$VERSION
+#        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:$VERSION
