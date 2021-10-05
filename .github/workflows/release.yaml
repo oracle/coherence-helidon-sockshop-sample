@@ -1,0 +1,49 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - release
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: '11'
+    - name: Build
+      env:
+        MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
+      run: mvn -B install --file pom.xml
+    - name: Push container images
+      env:
+        REGISTRY_USER: ${{ github.actor }}
+        REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        VERSION: ${{ github.ref }}
+      run: |
+        echo $VERSION
+        echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
+        mvn -B package --file pom.xml -Pcontainer -DskipTests
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:$VERSION
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:$VERSION
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:$VERSION
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:$VERSION
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:$VERSION
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:$VERSION
+    - name: Create Release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: |
+          Coherence version: 21.06.2
+          Helidon version: 2.2.0
+        draft: true
+        prerelease: false

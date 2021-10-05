@@ -12,7 +12,7 @@ spec:
   cluster: SockShop
   role: Shipping
   replicas: 1
-  image: ghcr.io/oracle/coherence-helidon-sockshop-shipping:latest
+  image: ghcr.io/oracle/coherence-helidon-sockshop-shipping:0.1.0
   env:
     - name: TRACING_HOST
       value: "jaeger-collector"
