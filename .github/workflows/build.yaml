@@ -10,9 +10,6 @@ on:
   pull_request:
     branches:
       - master
-  release:
-    types:
-      - created
 
 jobs:
   build:
@@ -32,18 +29,18 @@ jobs:
     - name: Build with Maven
       env:
         MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
-      run: mvn -B install --file pom.xml -s .github/maven/settings.xml -DenableAssertions=false
+      run: mvn -B install --file pom.xml
     - name: Push container images
       env:
         REGISTRY_USER: ${{ github.actor }}
         REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       run: |
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
-        mvn package --file pom.xml -s .github/maven/settings.xml -Pcontainer -DenableAssertions=false -DskipTests
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:1.0.0-SNAPSHOT
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:1.0.0-SNAPSHOT
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:1.0.0-SNAPSHOT
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:1.0.0-SNAPSHOT
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:1.0.0-SNAPSHOT
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:1.0.0-SNAPSHOT
+        mvn -B package --file pom.xml -Pcontainer -DskipTests
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:latest
       if: github.event_name == 'push'
