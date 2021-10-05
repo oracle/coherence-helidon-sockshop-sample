@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>carts</artifactId>
     <packaging>jar</packaging>
-    <version>0.2.0</version>
+    <version>1.0.0</version>
 
     <name>${project.artifactId}</name>
     <description>Shopping Cart service for Helidon Sock Shop demo application</description>
