@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>payment</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <mainClass>io.helidon.microprofile.cdi.Main</mainClass>

@@ -12,7 +12,7 @@ spec:
 #  cluster: SockShop
   role: Users
   replicas: 1
-  image: ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.0
+  image: ghcr.io/oracle/coherence-helidon-sockshop-users:1.0.0-SNAPSHOT
   imagePullPolicy: IfNotPresent
   env:
     - name: TRACING_HOST

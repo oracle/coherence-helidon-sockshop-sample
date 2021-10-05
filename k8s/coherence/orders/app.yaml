@@ -12,7 +12,7 @@ spec:
 #  cluster: SockShop
   role: Orders
   replicas: 1
-  image: ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.0
+  image: ghcr.io/oracle/coherence-helidon-sockshop-orders:1.0.0-SNAPSHOT
   imagePullPolicy: IfNotPresent
   env:
     - name: TRACING_HOST
