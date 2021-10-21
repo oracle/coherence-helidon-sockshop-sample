@@ -96,19 +96,9 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
 
     $ kubectl get ingress --namespace sockshop
 
-    NAME               HOSTS                                                                                            ADDRESS           PORTS   AGE
-    mp-ingress         mp.core.sockshop.mycompany.com                                                                   XXX.XXX.XXX.XXX   80      12d
-    sockshop-ingress   core.sockshop.mycompany.com,jaeger.core.sockshop.mycompany.com,api.core.sockshop.mycompany.com   XXX.XXX.XXX.XXX   80      12d
-    ```
-
-1. Install a Service Monitor
-
-   > Note: This is only required for non `coherence` backends.
-
-   Each time you use a different back-end you will need to create a new service monitor.
-
-    ```bash
-    $ envsubst -i k8s/optional/prometheus-service-monitor.yaml | kubectl create --namespace monitoring -f -
+    NAME               HOSTS                                                                                                           ADDRESS           PORTS   AGE
+    mp-ingress         mp.coherence.sockshop.mycompany.com                                                                             XXX.XXX.XXX.XXX   80      12d
+    sockshop-ingress   coherence.sockshop.mycompany.com,jaeger.coherence.sockshop.mycompany.com,api.coherence.sockshop.mycompany.com   XXX.XXX.XXX.XXX   80      12d
     ```
 
 1. Create the ingress for Grafana and Prometheus
@@ -130,7 +120,7 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
 
 1. Access the application
 
-   Access the application via the endpoint http://core.sockshop.mycompany.com/
+   Access the application via the endpoint http://coherence.sockshop.mycompany.com/
 
 ### Install the Jaeger Operator
 
@@ -151,7 +141,7 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
 
 1. Exercise the Application and access Jaeger
 
-   Accessing the Jaeger UI at http://jaeger.core.sockshop.mycompany.com/,
+   Accessing the Jaeger UI at http://jaeger.coherence.sockshop.mycompany.com/,
    you should see the trace information similar to the images below, allowing you
    to see how long each individual operation in the call tree took.
 
@@ -167,7 +157,7 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
     $ kubectl create -f k8s/optional/swagger.yaml --namespace sockshop
     ```
 
-   Access the Swagger UI at http://mp.core.sockshop.mycompany.com/swagger/.
+   Access the Swagger UI at http://mp.coherence.sockshop.mycompany.com/swagger/.
 
    Enter /carts/openapi into the Explore field at the top of the screen and click on Explore button. 
    You should see the screen similar to the following, showing you all the endpoints for the Carts 

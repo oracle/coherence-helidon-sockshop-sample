@@ -13,15 +13,17 @@ spec:
   - host: grafana.${SOCKSHOP_DOMAIN:=sockshop.helidon.io}
     http:
       paths:
-      - backend:
+      - pathType: ImplementationSpecific
+        backend:
           service:
-            name: prometheus-grafana
+            name: grafana
             port:
-              number: 80
+              number: 3000
   - host: prometheus.${SOCKSHOP_DOMAIN:=sockshop.helidon.io}
     http:
       paths:
-      - backend:
+      - pathType: ImplementationSpecific
+        backend:
           service:
             name: prometheus-operated
             port:
