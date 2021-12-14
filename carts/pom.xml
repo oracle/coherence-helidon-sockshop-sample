@@ -14,7 +14,7 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>2.2.0</version>
+        <version>2.4.0</version>
         <relativePath/>
     </parent>
 
@@ -33,7 +33,7 @@
         <jib.goal>dockerBuild</jib.goal>
 
         <!-- dependencies -->
-        <version.lib.coherence>21.06.2</version.lib.coherence>
+        <version.lib.coherence>21.12</version.lib.coherence>
         <version.lib.lombok>1.18.18</version.lib.lombok>
         <version.lib.junit>5.7.1</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
@@ -56,6 +56,26 @@
             </snapshots>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-staging</id>
+            <url>https://oss.sonatype.org/content/groups/staging/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>jcenter.bintray.com</id>
+            <url>https://jcenter.bintray.com</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
