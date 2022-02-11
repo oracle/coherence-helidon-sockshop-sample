@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 44,
-  "iteration": 1591747442146,
+  "id": 25,
+  "iteration": 1644539210043,
   "links": [],
   "panels": [
     {
@@ -275,7 +275,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"})  ",
+          "expr": "avg(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"} > 0)  ",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -362,7 +362,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"})  ",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -449,7 +449,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"}",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"})",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -517,7 +517,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} / (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} + application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"})",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}) / (sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}) + sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"}))",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -573,7 +573,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"}) - (sum(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds_count{namespace=~\"$Namespace\"} offset $__interval))",
           "instant": false,
           "interval": "",
           "legendFormat": "Orders",
@@ -675,14 +675,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"}) - (sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_success_total{namespace=~\"$Namespace\"} offset $__interval))",
           "instant": false,
           "interval": "",
           "legendFormat": "Payment Successes",
           "refId": "A"
         },
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} - (application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} offset $__interval)",
+          "expr": "sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"}) - (sum(application_com_oracle_coherence_examples_sockshop_helidon_payment_DefaultPaymentService_payment_failure_total{namespace=~\"$Namespace\"} offset $__interval))",
           "instant": false,
           "interval": "",
           "legendFormat": "Payment Failures",
@@ -773,7 +773,7 @@
       "pluginVersion": "6.7.3",
       "targets": [
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_min_seconds{namespace=~\"$Namespace\"}",
+          "expr": "min(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_min_seconds{namespace=~\"$Namespace\"} > 0)",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -781,7 +781,7 @@
           "refId": "B"
         },
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"}",
+          "expr": "avg(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_mean_seconds{namespace=~\"$Namespace\"} > 0)",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -789,7 +789,7 @@
           "refId": "C"
         },
         {
-          "expr": "application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_max_seconds{namespace=~\"$Namespace\"}",
+          "expr": "max(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_max_seconds{namespace=~\"$Namespace\"})",
           "format": "time_series",
           "instant": true,
           "interval": "",
@@ -845,7 +845,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"} - (vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"} offset $__interval) > 0",
+          "expr": "sum(vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"}) - (sum(vendor_grpc_requests_meter_total{namespace=~\"$Namespace\"} offset $__interval)) > 0",
           "instant": false,
           "interval": "",
           "legendFormat": "Role: {{role}}",
@@ -904,6 +904,8 @@
       {
         "allValue": null,
         "current": {
+          "text": "sockshop-coherence",
+          "value": "sockshop-coherence"
         },
         "datasource": "prometheus",
         "definition": "label_values(application_com_oracle_coherence_examples_sockshop_helidon_orders_OrderResource_newOrder_seconds, namespace)",
@@ -952,5 +954,5 @@
   "variables": {
     "list": []
   },
-  "version": 1
+  "version": 6
 }
