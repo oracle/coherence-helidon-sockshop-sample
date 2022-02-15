@@ -84,7 +84,7 @@ If you do, you can simply run the following command from the `coherence-helidon-
 
 * Install the Coherence Operator
 
-Install the Coherence Operator using the instructions in the [Coherence Operator Quick Start](https://oracle.github.io/coherence-operator/docs/latest/#/about/03_quickstart) documentation.
+Install the Coherence Operator using the instructions in the [Coherence Operator Quick Start](https://oracle.github.io/coherence-operator/docs/latest/#/docs/about/03_quickstart) documentation.
 
 
 * **Installing a Back-end**
@@ -101,6 +101,12 @@ Install the back-end into the `sockshop` namespace.
     ```bash
     $ kubectl apply -k k8s/coherence --namespace sockshop
     ```
+
+TIP: You can see the state of the pods using:
+
+```bash
+kubectl --namespace sockshop get pods
+```
 
 ### (Optional) Install the Original WeaveSocks Front End
 
