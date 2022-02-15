@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020,2021 Oracle and/or its affiliates.
+  Copyright (c) 2020,2022 Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
@@ -24,7 +24,7 @@
     <version>1.0.1-SNAPSHOT</version>
 
     <properties>
-        <mainClass>io.helidon.microprofile.cdi.Main</mainClass>
+        <mainClass>com.oracle.coherence.examples.sockshop.helidon.users.Application</mainClass>
         <container.repo>ghcr.io/oracle/coherence-helidon-sockshop</container.repo>
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
@@ -79,12 +79,15 @@
             <artifactId>helidon-microprofile</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.helidon.tracing</groupId>
-            <artifactId>helidon-tracing-jaeger</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
+        </dependency>
+
+        <!-- tracing dependencies -->
+
+        <dependency>
+            <groupId>io.helidon.tracing</groupId>
+            <artifactId>helidon-tracing-jaeger</artifactId>
         </dependency>
 
         <!-- Coherence dependencies -->
@@ -216,6 +219,7 @@
                                 <ports>
                                     <port>7001</port>
                                 </ports>
+                                <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
                             </container>
                             <containerizingMode>packaged</containerizingMode>
                         </configuration>
@@ -232,4 +236,5 @@
             </build>
         </profile>
     </profiles>
+
 </project>
