@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>payment</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
         <mainClass>com.oracle.coherence.examples.sockshop.helidon.payment.Application</mainClass>
