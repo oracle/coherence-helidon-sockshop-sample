@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>carts</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.0</version>
+    <version>1.2.1-SNAPSHOT</version>
 
     <name>${project.artifactId}</name>
     <description>Shopping Cart service for Helidon Sock Shop demo application</description>
@@ -33,7 +33,7 @@
         <jib.goal>dockerBuild</jib.goal>
 
         <!-- dependencies -->
-        <version.lib.coherence>22.06</version.lib.coherence>
+        <version.lib.coherence>22.06.1-SNAPSHOT</version.lib.coherence>
         <version.lib.lombok>1.18.24</version.lib.lombok>
         <version.lib.junit>5.8.2</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
@@ -52,7 +52,7 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -68,7 +68,7 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </pluginRepository>
         <pluginRepository>
