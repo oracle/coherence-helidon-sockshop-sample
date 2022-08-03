@@ -14,7 +14,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>sockshop-coh</artifactId>
     <packaging>pom</packaging>
-    <version>1.2.1</version>
+    <version>1.2.2-SNAPSHOT</version>
 
     <modules>
         <module>carts</module>
