@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>users</artifactId>
     <packaging>jar</packaging>
-    <version>1.2.2-SNAPSHOT</version>
+    <version>1.2.2</version>
 
     <properties>
         <mainClass>com.oracle.coherence.examples.sockshop.helidon.users.Application</mainClass>
@@ -29,7 +29,7 @@
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 
-        <version.lib.coherence>22.06.2-SNAPSHOT</version.lib.coherence>
+        <version.lib.coherence>22.06.2</version.lib.coherence>
         <version.lib.lombok>1.18.24</version.lib.lombok>
         <version.lib.junit>5.8.2</version.lib.junit>
         <version.lib.hamcrest>2.2</version.lib.hamcrest>
