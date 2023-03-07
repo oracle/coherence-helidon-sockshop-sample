@@ -177,7 +177,7 @@ locally, and (optionally) push new container images to the repository of your ch
 
  [Go to Development section](./doc/development.md)
  
- ## Contributing
+## Contributing
 
 This project welcomes contributions from the community. Before submitting a pull request, please [review our contribution guide](./CONTRIBUTING.md)
 
