@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
+
 package com.oracle.coherence.examples.sockshop.helidon.shipping;
 
 import io.helidon.microprofile.server.Server;
@@ -12,7 +19,7 @@ import java.time.LocalDate;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-import static javax.ws.rs.core.Response.Status.OK;
+import static jakarta.ws.rs.core.Response.Status.OK;
 import static org.hamcrest.Matchers.is;
 
 public class MetricsIT {

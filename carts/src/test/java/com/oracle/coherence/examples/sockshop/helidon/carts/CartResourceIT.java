@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020,2021 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,7 +7,7 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.carts;
 
-import javax.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.CDI;
 
 import io.helidon.microprofile.server.Server;
 
@@ -16,13 +16,26 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.*;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.when;
+
 import static io.restassured.http.ContentType.JSON;
-import static javax.ws.rs.core.Response.Status.*;
+
+import static jakarta.ws.rs.core.Response.Status.ACCEPTED;
+import static jakarta.ws.rs.core.Response.Status.CREATED;
+import static jakarta.ws.rs.core.Response.Status.NOT_FOUND;
+import static jakarta.ws.rs.core.Response.Status.OK;
+
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 /**
  * Integration tests for {@link CartResource}.
@@ -154,6 +167,7 @@ public class CartResourceIT {
     }
 
     @Test
+    @Disabled("https://github.com/rest-assured/rest-assured/issues/1651")
     void testAddItem() {
         given().
                 contentType(JSON).
@@ -180,6 +194,7 @@ public class CartResourceIT {
     }
 
     @Test
+    @Disabled("https://github.com/rest-assured/rest-assured/issues/1651")
     void testUpdateItem() {
         given().
                 contentType(JSON).

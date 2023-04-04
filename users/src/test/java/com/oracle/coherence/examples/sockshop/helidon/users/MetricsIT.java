@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ *
+ * Licensed under the Universal Permissive License v 1.0 as shown at
+ * https://oss.oracle.com/licenses/upl.
+ */
+
 package com.oracle.coherence.examples.sockshop.helidon.users;
 
 import io.helidon.microprofile.server.Server;
@@ -5,6 +12,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -31,6 +39,7 @@ public class MetricsIT {
 	}
 
 	@Test
+	@Disabled("https://github.com/rest-assured/rest-assured/issues/1651")
 	public void testRegister() {
 		given().
 				port(SERVER.port()).

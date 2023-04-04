@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020,2021 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -9,7 +9,7 @@ package com.oracle.coherence.examples.sockshop.helidon.shipping;
 
 import java.time.LocalDate;
 
-import javax.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.CDI;
 
 import io.helidon.microprofile.grpc.client.GrpcProxyBuilder;
 import io.helidon.microprofile.server.Server;
