@@ -25,6 +25,8 @@ spec:
   jvm:
     memory:
       heapSize: 2g
+    args:
+      - "-Djdk.serialFilter=*;!*"
   coherence:
     metrics:
       enabled: true
