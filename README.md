@@ -74,6 +74,13 @@ top-level POM file which allows you to easily build the whole project and import
 into your favorite IDE, and a _bash_ script that makes it easy to checkout and update 
 all project repositories at once.
 
+## Pre-Requisites
+
+1. Latest version of `kubectl` available from https://kubernetes.io/docs/tasks/tools/.
+2. Docker or Rancher
+3. A remote or local Kubernetes cluster - Min 1.16+
+4. Maven 3.8+ and JDK 17
+
 ## Quick Start
 
 Kubernetes scripts depend on Kustomize, so make sure that you have a newer 
@@ -92,16 +99,15 @@ Install the Coherence Operator using the instructions in the [Coherence Operator
 
 Create a namespace in Kubernetes called `sockshop`.
 
-    ```bash
-    $ kubectl create namespace sockshop
-    namespace/sockshop created
-    ```
+```bash
+$ kubectl create namespace sockshop
+```
 
 Install the back-end into the `sockshop` namespace.
 
-    ```bash
-    $ kubectl apply -k k8s/coherence --namespace sockshop
-    ```
+```bash
+$ kubectl apply -k k8s/coherence --namespace sockshop
+```
 
 TIP: You can see the state of the pods using:
 
