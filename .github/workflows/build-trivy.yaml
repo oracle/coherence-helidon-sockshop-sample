@@ -17,10 +17,10 @@ jobs:
       image: ghcr.io/aquasecurity/trivy:latest
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /home/runner/work/coherence-py-client/coherence-py-client:/repo
+        - /home/runner/work/coherence-helidon-sockshop-sample/coherence-helidon-sockshop-sample:/repo
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Trivy Scan
-        run: trivy fs --exit-code 1 --skip-dirs "/repo/tests/java" /repo
+        run: trivy fs --exit-code 1 /repo
