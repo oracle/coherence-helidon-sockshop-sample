@@ -64,14 +64,14 @@ services, which can be accessed using the links above.
 
 ## Project Structure
 
-Each back end service described above has its own Github repo, so it can be versioned
-and released independently from other services. 
+Each back end service described above has its own GitHub repo, so it can be versioned
+and released independently of other services. 
 
 In addition to that, there is also a main 
 [Sock Shop](.) repository (the one you are 
 currently in), which contains Kubernetes deployment files for the whole application, 
 top-level POM file which allows you to easily build the whole project and import it 
-into your favorite IDE, and a _bash_ script that makes it easy to checkout and update 
+into your favorite IDE, and a _bash_ script that makes it easy to check out and update 
 all project repositories at once.
 
 ## Pre-Requisites
