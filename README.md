@@ -100,13 +100,13 @@ Install the Coherence Operator using the instructions in the [Coherence Operator
 Create a namespace in Kubernetes called `sockshop`.
 
 ```bash
-$ kubectl create namespace sockshop
+kubectl create namespace sockshop
 ```
 
 Install the back-end into the `sockshop` namespace.
 
 ```bash
-$ kubectl apply -k k8s/coherence --namespace sockshop
+kubectl apply -k k8s/coherence --namespace sockshop
 ```
 
 TIP: You can see the state of the pods using:
@@ -125,13 +125,13 @@ kubectl --namespace sockshop get pods
 Install the `front-end` service by running the following command:
 
 ```bash
-$ kubectl apply -f k8s/optional/original-front-end.yaml --namespace sockshop
+kubectl apply -f k8s/optional/original-front-end.yaml --namespace sockshop
 ```
 
 Port-forward to the `front-end` UI using the following
 
 ```bash
-$ kubectl port-forward --namespace sockshop service/front-end 8079:80
+kubectl port-forward --namespace sockshop service/front-end 8079:80
 ```
 
 > Note: If you have installed into a namespace then add the `--namespace` option to all `kubectl` commands in these instructions.
@@ -144,8 +144,8 @@ browse order history, etc.
 Once you are finished, you can clean up the environment by executing the following:
 
 ```bash
-$ kubectl delete -f k8s/optional/original-front-end.yaml --namespace sockshop
-$ kubectl delete -k k8s/coherence --namespace sockshop
+kubectl delete -f k8s/optional/original-front-end.yaml --namespace sockshop
+kubectl delete -k k8s/coherence --namespace sockshop
 ```
 
 ### Scale Back-End
@@ -154,12 +154,12 @@ If you wish to scale the back-end you can issue the following command
 
 Scale only the orders microservice
 ```bash
-$ kubectl --namespace sockshop scale coherence orders --replicas=3
+kubectl --namespace sockshop scale coherence orders --replicas=3
 ```
 
 Or alternatively scale all the microservices
 ```bash
-$ for name in carts catalog orders payment shipping users
+for name in carts catalog orders payment shipping users
     do kubectl --namespace sockshop scale coherence $name --replicas=3
 done
 ```
