@@ -56,7 +56,7 @@ jobs:
       env:
         KIND_IMAGE: kindest/node:v1.24.7@sha256:577c630ce8e509131eab1aea12c022190978dd2f745aac5eb1fe65c0807eb315
       run: |
-        echo "Starting kind using ${KIND_IMAGE}
+        echo "Starting kind using ${KIND_IMAGE}"
         kind create cluster --name sockshop --wait 10m --image ${KIND_IMAGE}
         kubectl create namespace sockshop
         echo "Deploying Operator"
