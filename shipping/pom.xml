@@ -41,7 +41,7 @@
         <version.plugin.jib>3.2.1</version.plugin.jib>
 
         <!-- Override included version of OpenTelemetry to avoid runtime issues -->
-        <version.lib.opentelemetry>1.22.0</version.lib.opentelemetry>
+        <version.lib.opentelemetry>1.33.0</version.lib.opentelemetry>
         <version.lib.opentelemetry.opentracing.shim>1.22.0-alpha</version.lib.opentelemetry.opentracing.shim>
         <version.lib.opentelemetry.semconv>1.22.0-alpha</version.lib.opentelemetry.semconv>
     </properties>
@@ -125,6 +125,10 @@
             <version>${version.lib.opentelemetry}</version>
             <type>pom</type>
             <scope>import</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk</artifactId>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
