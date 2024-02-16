@@ -28,6 +28,7 @@ as the application framework, in case one of those is your framework of choice.
 * [Pre-Requisites](#pre-requisites)
 * [Quick Start](#quick-start)
 * [Complete Application Deployment](./doc/complete-application-deployment.md)
+* [Alternate Coherence Topologies](./k8s/alternatives/topologies.md)
 * [Integrating with Oracle OCI Application Performance Monitoring (APM)](./doc/oracle-cloud-apm.md)
 * [Development](./doc/development.md)
 * [License](#license)
