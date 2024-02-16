@@ -1,0 +1,48 @@
+#
+# Copyright (c) 2020, 2024, Oracle and/or its affiliates.
+#
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+#
+apiVersion: coherence.oracle.com/v1
+kind: Coherence
+metadata:
+  name: catalog
+spec:
+  role: Catalog
+  replicas: 1
+  image: ghcr.io/oracle/coherence-helidon-sockshop-catalog:latest
+  readinessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  env:
+    - name: TRACING_HOST
+      value: "jaeger-collector"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+  application:
+    type: helidon
+  jvm:
+    memory:
+      heapSize: 2g
+    args:
+      - "-Dhelidon.serialFilter.ignoreFiles=true" 
+      - "-Dhelidon.serialFilter.pattern=*"
+      - "-Dhelidon.serialFilter.failure.action=WARN"
+  coherence:
+    storageEnabled: false
+    metrics:
+      enabled: true
+  ports:
+    - name: http
+      port: 7001
+      service:
+        name: catalogue  # for compatibility with the existing front-end implementation
+        port: 80
+      serviceMonitor:
+        enabled: true
+    - name: metrics
+      serviceMonitor:
+        enabled: true

@@ -1,0 +1,42 @@
+#
+# Copyright (c) 2020, 2024, Oracle and/or its affiliates.
+#
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+#
+apiVersion: coherence.oracle.com/v1
+kind: Coherence
+metadata:
+  name: payment-storage
+spec:
+  role: PaymentStorage
+  replicas: 1
+  image: ghcr.io/oracle/coherence-helidon-sockshop-payment:latest
+  readinessProbe:
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  env:
+    - name: TRACING_HOST
+      value: "jaeger-collector"
+    - name: JAEGER_SAMPLER_TYPE
+      value: "const"
+    - name: JAEGER_SAMPLER_PARAM
+      value: "1"
+  jvm:
+    memory:
+      heapSize: 2g
+    args:
+      - "-Dhelidon.serialFilter.ignoreFiles=true" 
+      - "-Dhelidon.serialFilter.pattern=*"
+      - "-Dhelidon.serialFilter.failure.action=WARN"
+  coherence:
+    storageEnabled: true
+    management:
+      enabled: true
+    metrics:
+      enabled: true
+  ports:
+    - name: management
+    - name: metrics
+      serviceMonitor:
+        enabled: true
