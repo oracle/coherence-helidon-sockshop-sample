@@ -41,7 +41,7 @@
         <version.plugin.surefire>2.22.2</version.plugin.surefire>
         <version.plugin.failsafe>2.22.2</version.plugin.failsafe>
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
-        <version.plugin.jib>3.4.0</version.plugin.jib>
+        <version.plugin.jib>3.4.1</version.plugin.jib>
 
         <!-- Override included version of OpenTelemetry to avoid runtime issues -->
         <version.lib.opentelemetry>1.33.0</version.lib.opentelemetry>
