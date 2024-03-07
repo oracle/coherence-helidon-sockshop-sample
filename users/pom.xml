@@ -38,6 +38,7 @@
         <version.plugin.failsafe>2.22.2</version.plugin.failsafe>
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
         <version.plugin.jib>3.4.1</version.plugin.jib>
+        <version.lib.jaeger>1.8.1</version.lib.jaeger>
 
         <!-- Override included version of OpenTelemetry to avoid runtime issues -->
         <version.lib.opentelemetry>1.33.0</version.lib.opentelemetry>
@@ -78,6 +79,18 @@
         </pluginRepository>
     </pluginRepositories>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${version.lib.opentelemetry}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>io.helidon.microprofile.bundles</groupId>
@@ -93,6 +106,11 @@
         <dependency>
             <groupId>io.helidon.tracing</groupId>
             <artifactId>helidon-tracing-jaeger</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jaegertracing</groupId>
+            <artifactId>jaeger-client</artifactId>
+            <version>${version.lib.jaeger}</version>
         </dependency>
 
         <!-- Coherence dependencies -->
@@ -113,13 +131,6 @@
         </dependency>
 
         <!-- Override included version of OpenTelemetry to avoid runtime issues -->
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-bom</artifactId>
-            <version>${version.lib.opentelemetry}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
             <artifactId>opentelemetry-sdk</artifactId>
