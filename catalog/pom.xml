@@ -42,7 +42,7 @@
 
         <!-- Override included version of OpenTelemetry to avoid runtime issues -->
         <version.lib.opentelemetry>1.33.0</version.lib.opentelemetry>
-        <version.lib.opentelemetry.opentracing.shim>1.22.0-alpha</version.lib.opentelemetry.opentracing.shim>
+        <version.lib.opentelemetry.opentracing.shim>1.36.0</version.lib.opentelemetry.opentracing.shim>
         <version.lib.opentelemetry.semconv>1.30.1-alpha</version.lib.opentelemetry.semconv>
     </properties>
 
