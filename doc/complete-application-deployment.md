@@ -169,6 +169,8 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
    >   tracing:
    >     ratio: 1
    >```
+   > Due to known issues between Coherence and Helidon, Coherence traces will not
+   > be properly associated with the Helidon traces.
 
 1. Exercise the Application and access Jaeger
 
