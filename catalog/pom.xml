@@ -40,11 +40,6 @@
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
         <version.plugin.jib>3.4.1</version.plugin.jib>
         <version.lib.jaeger>1.8.1</version.lib.jaeger>
-
-        <!-- Override included version of OpenTelemetry to avoid runtime issues -->
-        <version.lib.opentelemetry>1.33.0</version.lib.opentelemetry>
-        <version.lib.opentelemetry.opentracing.shim>1.22.0-alpha</version.lib.opentelemetry.opentracing.shim>
-        <version.lib.opentelemetry.semconv>1.30.1-alpha</version.lib.opentelemetry.semconv>
     </properties>
 
     <repositories>
@@ -80,18 +75,6 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.opentelemetry</groupId>
-                <artifactId>opentelemetry-bom</artifactId>
-                <version>${version.lib.opentelemetry}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>io.helidon.microprofile.bundles</groupId>
@@ -121,22 +104,6 @@
             <groupId>com.oracle.coherence.ce</groupId>
             <artifactId>coherence-mp-config</artifactId>
             <version>${version.lib.coherence}</version>
-        </dependency>
-
-        <!-- Override included version of OpenTelemetry to avoid runtime issues -->
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-sdk</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-semconv</artifactId>
-            <version>${version.lib.opentelemetry.semconv}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-opentracing-shim</artifactId>
-            <version>${version.lib.opentelemetry.opentracing.shim}</version>
         </dependency>
 
         <!-- tracing -->
