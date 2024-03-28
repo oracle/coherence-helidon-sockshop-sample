@@ -59,7 +59,7 @@
         </repository>
         <repository>
             <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/groups/snapshots/</url>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -85,7 +85,7 @@
         </pluginRepository>
         <pluginRepository>
             <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/groups/snapshots/</url>
+            <url>https://oss.sonatype.org/content/repositores/snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
