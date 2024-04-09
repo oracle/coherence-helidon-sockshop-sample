@@ -42,7 +42,7 @@
         <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
         <version.plugin.jar>3.3.0</version.plugin.jar>
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
-        <version.plugin.jib>3.4.1</version.plugin.jib>
+        <version.plugin.jib>3.4.2</version.plugin.jib>
         <version.lib.jaeger>1.8.1</version.lib.jaeger>
     </properties>
 
