@@ -45,12 +45,12 @@ jobs:
       run: |
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
         mvn -B package --file pom.xml -Pcontainer -DskipTests
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:latest
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:latest
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:latest
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:latest
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:latest
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.1
       if: github.event_name == 'push'
 
     - name: Test Against Kind
@@ -63,7 +63,7 @@ jobs:
         mvn -B package --file pom.xml -Pcontainer -DskipTests
         kubectl create namespace sockshop
         echo "Deploying Operator"
-        kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.2.11/coherence-operator.yaml
+        kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
         kubectl rollout status deployment coherence-operator-controller-manager -n coherence --timeout=180s
         echo "Deploying Sockshop"
         kubectl apply -k k8s/coherence --namespace sockshop
@@ -75,7 +75,7 @@ jobs:
         done
         echo "Success"
         kubectl delete -k k8s/coherence --namespace sockshop
-        kubectl delete -f https://github.com/oracle/coherence-operator/releases/download/v3.2.11/coherence-operator.yaml
+        kubectl delete -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
         kubectl delete ns sockshop 
         
 
