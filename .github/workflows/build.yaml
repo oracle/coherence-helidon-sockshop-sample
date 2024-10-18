@@ -45,12 +45,12 @@ jobs:
       run: |
         echo $REGISTRY_PASSWORD | docker login ghcr.io -u $REGISTRY_USER --password-stdin
         mvn -B package --file pom.xml -Pcontainer -DskipTests
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.1
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.1
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.1
-        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.1
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-carts:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-catalog:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-orders:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-payment:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-shipping:latest
+        docker push ghcr.io/oracle/coherence-helidon-sockshop-users:latest
       if: github.event_name == 'push'
 
     - name: Test Against Kind
@@ -77,5 +77,13 @@ jobs:
         kubectl delete -k k8s/coherence --namespace sockshop
         kubectl delete -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
         kubectl delete ns sockshop 
-        
+
+    - name: Dump logs on failure
+      if: failure()  # This step runs only if the previous step failed
+      run: |
+        echo "Dumping logs for all pods in the namespace:"
+        for pod in $(kubectl get pods --namespace sockshop -o jsonpath='{.items[*].metadata.name}'); do
+          echo "Logs for pod: $pod"
+          kubectl logs "$pod" --namespace sockshop || echo "Failed to get logs for $pod"
+        done
 
