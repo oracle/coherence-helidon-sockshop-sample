@@ -13,6 +13,7 @@ spec:
   role: Payment
   replicas: 1
   image: ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1
+  imagePullPolicy: IfNotPresent
   readinessProbe:
     initialDelaySeconds: 10
     periodSeconds: 10
