@@ -60,13 +60,14 @@ jobs:
         echo "Starting kind using ${KIND_IMAGE}"
         kind create cluster --name sockshop --wait 10m --image ${KIND_IMAGE}
         echo "Build latest images"
+        export sock_image_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
         mvn -B package --file pom.xml -Pcontainer -DskipTests
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1 --name sockshop
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.1 --name sockshop
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.1 --name sockshop
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1 --name sockshop
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.1 --name sockshop
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-carts:${sock_image_version} --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-catalog:${sock_image_version} --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-orders:${sock_image_version} --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-payment:${sock_image_version} --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-shipping:${sock_image_version} --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-users:${sock_image_version} --name sockshop
         kubectl create namespace sockshop
         echo "Deploying Operator"
         kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
@@ -75,14 +76,7 @@ jobs:
         kubectl apply -k k8s/coherence --namespace sockshop
         docker images
         echo "Waiting 30 seconds to ensure the pods are at least created..."
-        kubectl describe pod --namespace sockshop carts-0
         sleep 30
-        echo "Dumping logs for all pods in the namespace:"
-        for pod in $(kubectl get pods --namespace sockshop -o jsonpath='{.items[*].metadata.name}'); do
-          echo "Logs for pod: $pod"
-          kubectl describe pod --namespace sockshop $pod
-          kubectl logs "$pod" --namespace sockshop || echo "Failed to get logs for $pod"
-        done
         for pod in carts-0 orders-0 catalog-0 shipping-0 users-0 payment-0
         do
           kubectl -n sockshop wait --for condition=ready --timeout 30s pod/${pod}
