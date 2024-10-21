@@ -69,6 +69,7 @@ jobs:
         kubectl apply -k k8s/coherence --namespace sockshop
         docker images
         echo "Waiting 30 seconds to ensure the pods are at least created..."
+        kubectl describe pod carts-0
         sleep 30
         echo "Dumping logs for all pods in the namespace:"
         for pod in $(kubectl get pods --namespace sockshop -o jsonpath='{.items[*].metadata.name}'); do
