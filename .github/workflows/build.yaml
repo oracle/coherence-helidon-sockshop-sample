@@ -69,9 +69,13 @@ jobs:
         kubectl apply -k k8s/coherence --v=9 --namespace sockshop
         echo "Waiting 30 seconds to ensure the pods are at least created..."
         sleep 30
+        echo "Dumping logs for all pods in the namespace:"
+        for pod in $(kubectl get pods --namespace sockshop -o jsonpath='{.items[*].metadata.name}'); do
+          echo "Logs for pod: $pod"
+          kubectl logs "$pod" --namespace sockshop || echo "Failed to get logs for $pod"
+        done
         for pod in carts-0 orders-0 catalog-0 shipping-0 users-0 payment-0
         do
-          kubectl -n sockshop describe pod ${pod}
           kubectl -n sockshop wait --v=9 --for condition=ready --timeout 30s pod/${pod}
         done
         echo "Success"
