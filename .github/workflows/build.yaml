@@ -61,12 +61,12 @@ jobs:
         kind create cluster --name sockshop --wait 10m --image ${KIND_IMAGE}
         echo "Build latest images"
         mvn -B package --file pom.xml -Pcontainer -DskipTests
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.1
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.1
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.1
-        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.1
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-payment:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-shipping:2.2.1 --name sockshop
+        kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-users:2.2.1 --name sockshop
         kubectl create namespace sockshop
         echo "Deploying Operator"
         kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
