@@ -13,7 +13,6 @@ spec:
   role: Carts
   replicas: 1
   image: ghcr.io/oracle/coherence-helidon-sockshop-carts:2.2.1
-  imagePullPolicy: IfNotPresent
   readinessProbe:
     initialDelaySeconds: 10
     periodSeconds: 10
