@@ -66,12 +66,12 @@ jobs:
         kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
         kubectl rollout status deployment coherence-operator-controller-manager -n coherence --timeout=180s
         echo "Deploying Sockshop"
-        kubectl apply -k k8s/coherence --namespace sockshop
+        kubectl apply -k k8s/coherence --v=4 --namespace sockshop
         echo "Waiting 30 seconds to ensure the pods are at least created..."
         sleep 30
         for pod in carts-0 orders-0 catalog-0 shipping-0 users-0 payment-0
         do
-          kubectl -n sockshop wait --for condition=ready --timeout 480s pod/${pod}
+          kubectl -n sockshop wait --v=4 --for condition=ready --timeout 480s pod/${pod}
         done
         echo "Success"
         kubectl delete -k k8s/coherence --namespace sockshop
