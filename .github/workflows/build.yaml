@@ -71,6 +71,7 @@ jobs:
         sleep 30
         for pod in carts-0 orders-0 catalog-0 shipping-0 users-0 payment-0
         do
+          kubectl -n sockshop describe pod ${pod}
           kubectl -n sockshop wait --v=9 --for condition=ready --timeout 30s pod/${pod}
         done
         echo "Success"
