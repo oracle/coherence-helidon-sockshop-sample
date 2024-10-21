@@ -63,12 +63,12 @@ jobs:
           export sock_image_version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           mvn -B package --file pom.xml -Pcontainer -DskipTests
           echo "====== Loading generated images into kind ... ======"
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-carts:${sock_image_version} --name sockshop
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-catalog:${sock_image_version} --name sockshop
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-orders:${sock_image_version} --name sockshop
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-payment:${sock_image_version} --name sockshop
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-shipping:${sock_image_version} --name sockshop
-          kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-users:${sock_image_version} --name sockshop
+          for name in carts orders catalog shipping users payment
+          do
+            kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-${name}:${sock_image_version} --name sockshop
+            kind load docker-image ghcr.io/oracle/coherence-helidon-sockshop-${name}:latest --name sockshop
+          done
+          echo "====== Creating Sockshop Namespace ======"
           kubectl create namespace sockshop
           echo "====== Deploying Operator ======"
           kubectl apply -f https://github.com/oracle/coherence-operator/releases/download/v3.4.0/coherence-operator.yaml
