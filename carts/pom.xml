@@ -34,7 +34,7 @@
 
         <!-- dependencies -->
         <version.lib.coherence>24.09</version.lib.coherence>
-        <version.lib.lombok>1.18.34</version.lib.lombok>
+        <version.lib.lombok>1.18.36</version.lib.lombok>
         <version.lib.junit>5.11.3</version.lib.junit>
         <version.lib.hamcrest>3.0</version.lib.hamcrest>
         <version.lib.jandex>3.1.6</version.lib.jandex>
