@@ -12,7 +12,7 @@ spec:
   cluster: SockShop
   role: Orders
   replicas: 1
-  image: ghcr.io/oracle/coherence-helidon-sockshop-orders:2.2.2
+  image: ghcr.io/oracle/coherence-helidon-sockshop-orders:latest
   readinessProbe:
     initialDelaySeconds: 10
     periodSeconds: 10

@@ -21,7 +21,7 @@
     <groupId>com.oracle.coherence.examples.sockshop.helidon</groupId>
     <artifactId>orders</artifactId>
     <packaging>jar</packaging>
-    <version>2.2.2</version>
+    <version>2.2.3-SNAPSHOT</version>
 
     <properties>
         <mainClass>com.oracle.coherence.examples.sockshop.helidon.orders.Application</mainClass>
