@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020,2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -12,6 +12,7 @@ import static jakarta.interceptor.Interceptor.Priority.APPLICATION;
 import com.oracle.coherence.cdi.Name;
 import com.tangosol.net.AsyncNamedMap;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.annotation.Priority;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Alternative;
@@ -22,8 +23,6 @@ import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
-import org.eclipse.microprofile.opentracing.Traced;
-
 /**
  * An implementation of {@link CartRepository} that that uses Coherence as a backend data
  * store.
@@ -31,7 +30,6 @@ import org.eclipse.microprofile.opentracing.Traced;
 @ApplicationScoped
 @Alternative
 @Priority(APPLICATION)
-@Traced
 public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
     protected final AsyncNamedMap<String, Cart> carts;
 
@@ -40,11 +38,13 @@ public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
         this.carts = carts;
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Boolean> deleteCart(String customerId) {
         return carts.remove(customerId).thenApply(Objects::nonNull);
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Boolean> mergeCarts(String targetId, String sourceId) {
         CompletableFuture<Boolean> future = new CompletableFuture<>();
@@ -74,16 +74,19 @@ public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
         return future;
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Item> getItem(String cartId, String itemId) {
         return getOrCreateCart(cartId).thenApply(cart -> cart.getItem(itemId));
     }
 
+    @WithSpan
     @Override
     public CompletionStage<List<Item>> getItems(String cartId) {
         return getOrCreateCart(cartId).thenApply(Cart::getItems);
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Item> addItem(String cartId, Item item) {
         return carts.invoke(cartId, entry -> {
@@ -94,6 +97,7 @@ public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
         });
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Item> updateItem(String cartId, Item item) {
         return carts.invoke(cartId, entry -> {
@@ -104,6 +108,7 @@ public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
         });
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Void> deleteItem(String cartId, String itemId) {
         return carts.invoke(cartId, entry -> {
@@ -114,6 +119,7 @@ public class CoherenceCartRepositoryAsync implements CartRepositoryAsync {
         }).thenAccept(cart -> {});
     }
 
+    @WithSpan
     @Override
     public CompletionStage<Cart> getOrCreateCart(String customerId) {
         return carts.computeIfAbsent(customerId, v -> new Cart(customerId));

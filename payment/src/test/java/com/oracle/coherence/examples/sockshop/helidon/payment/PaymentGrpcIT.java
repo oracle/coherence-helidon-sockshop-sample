@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,15 +7,27 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.payment;
 
+import io.helidon.grpc.api.Grpc;
+
+import io.helidon.microprofile.grpc.client.GrpcClientCdiExtension;
+import io.helidon.microprofile.grpc.client.GrpcConfigurablePort;
+import io.helidon.microprofile.grpc.server.GrpcMpCdiExtension;
+
+import io.helidon.microprofile.testing.junit5.AddBean;
+import io.helidon.microprofile.testing.junit5.AddExtension;
+import io.helidon.microprofile.testing.junit5.HelidonTest;
+
+import jakarta.inject.Inject;
+
+import jakarta.ws.rs.client.WebTarget;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import jakarta.enterprise.inject.spi.CDI;
 
-import io.helidon.microprofile.grpc.client.GrpcProxyBuilder;
 import io.helidon.microprofile.server.Server;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +42,12 @@ import static org.hamcrest.Matchers.is;
 /**
  * Integration tests for {@link PaymentGrpc}.
  */
+@HelidonTest
+@AddBean(PaymentClient.class)
+@AddExtension(GrpcMpCdiExtension.class)
+@AddExtension(GrpcClientCdiExtension.class)
 public class PaymentGrpcIT {
     protected static Server SERVER;
-    private static PaymentClient CLIENT;
 
     /**
      * This will start the application on ephemeral port to avoid port conflicts.
@@ -43,43 +58,43 @@ public class PaymentGrpcIT {
         // disable global tracing so we can start server in multiple test suites
         System.setProperty("tracing.global", "false");
         System.setProperty("grpc.port", "0");
-        SERVER = Server.builder().port(0).build().start();
-        CLIENT = GrpcProxyBuilder.create(PaymentClient.class).build();
     }
 
-    /**
-     * Stop the server, as we cannot have multiple servers started at the same time.
-     */
-    @AfterAll
-    static void stopServer() {
-        SERVER.stop();
-    }
+    @Inject
+    private WebTarget target;
+
+    @Inject
+    @Grpc.GrpcProxy
+    private PaymentClient client;
 
     private TestPaymentRepository payments;
 
     @BeforeEach
     void setup() {
+        if (client instanceof GrpcConfigurablePort client) {
+            client.channelPort(target.getUri().getPort());
+        }
         payments = CDI.current().select(TestPaymentRepository.class).get();
         payments.clear();
     }
 
     @Test
     void testSuccessfulAuthorization() {
-        Authorization authorization = CLIENT.authorize(paymentRequest("A123", 50));
+        Authorization authorization = client.authorize(paymentRequest("A123", 50));
         assertThat(authorization.isAuthorised(), is(true));
         assertThat(authorization.getMessage(), is("Payment authorized."));
     }
 
     @Test
     void testDeclinedAuthorization() {
-        Authorization authorization = CLIENT.authorize(paymentRequest("A123", 150));
+        Authorization authorization = client.authorize(paymentRequest("A123", 150));
         assertThat(authorization.isAuthorised(), is(false));
         assertThat(authorization.getMessage(), is("Payment declined: amount exceeds 100.00"));
     }
 
     @Test
     void testInvalidPaymentAmount() {
-        Authorization authorization = CLIENT.authorize(paymentRequest("A123", -50));
+        Authorization authorization = client.authorize(paymentRequest("A123", -50));
         assertThat(authorization.isAuthorised(), is(false));
         assertThat(authorization.getMessage(), is("Invalid payment amount."));
     }
@@ -92,8 +107,8 @@ public class PaymentGrpcIT {
         payments.saveAuthorization(auth("A123", time.plusSeconds(10), true, "Payment processed"));
         payments.saveAuthorization(auth("B456", time, true, "Payment processed"));
 
-        assertThat(CLIENT.getOrderAuthorizations("A123"), hasSize(3));
-        assertThat(CLIENT.getOrderAuthorizations("B456"), hasSize(1));
-        assertThat(CLIENT.getOrderAuthorizations("C789"), hasSize(0));
+        assertThat(client.getOrderAuthorizations("A123"), hasSize(3));
+        assertThat(client.getOrderAuthorizations("B456"), hasSize(1));
+        assertThat(client.getOrderAuthorizations("C789"), hasSize(0));
     }
 }

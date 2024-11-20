@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,6 +7,8 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.orders;
 
+import io.helidon.grpc.api.Grpc;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.ObservesAsync;
 import jakarta.inject.Inject;
@@ -16,10 +18,7 @@ import com.oracle.coherence.cdi.events.MapName;
 import com.oracle.coherence.cdi.events.Updated;
 import com.tangosol.net.events.partition.cache.EntryEvent;
 
-import io.helidon.microprofile.grpc.client.GrpcProxy;
 import lombok.extern.java.Log;
-
-import org.eclipse.microprofile.opentracing.Traced;
 
 import static com.oracle.coherence.examples.sockshop.helidon.orders.Order.Status.PAID;
 import static com.oracle.coherence.examples.sockshop.helidon.orders.Order.Status.PAYMENT_FAILED;
@@ -33,7 +32,6 @@ import static com.oracle.coherence.examples.sockshop.helidon.orders.Order.Status
  */
 @Log
 @ApplicationScoped
-@Traced
 public class EventDrivenOrderProcessor implements OrderProcessor {
     /**
      * Order repository to use.
@@ -45,19 +43,20 @@ public class EventDrivenOrderProcessor implements OrderProcessor {
      * Shipping service client.
      */
     @Inject
-    @GrpcProxy
+    @Grpc.GrpcProxy
     protected ShippingClient shippingService;
 
     /**
      * Payment service client.
      */
     @Inject
-    @GrpcProxy
+    @Grpc.GrpcProxy
     protected PaymentClient paymentService;
 
     // --- OrderProcessor interface -----------------------------------------
 
     @Override
+    @WithSpan
     public void processOrder(Order order) {
         saveOrder(order);
     }
@@ -68,6 +67,7 @@ public class EventDrivenOrderProcessor implements OrderProcessor {
      *
      * @param order the order to save
      */
+    @WithSpan
     protected void saveOrder(Order order) {
         orders.saveOrder(order);
         log.info("Order saved: " + order);
@@ -80,6 +80,7 @@ public class EventDrivenOrderProcessor implements OrderProcessor {
      *
      * @throws PaymentDeclinedException if the payment was declined
      */
+    @WithSpan
     protected void processPayment(Order order) {
         PaymentRequest paymentRequest = PaymentRequest.builder()
                 .orderId(order.getOrderId())
@@ -113,6 +114,7 @@ public class EventDrivenOrderProcessor implements OrderProcessor {
      *
      * @param order the order to ship
      */
+    @WithSpan
     protected void shipOrder(Order order) {
         ShippingRequest shippingRequest = ShippingRequest.builder()
                 .orderId(order.getOrderId())

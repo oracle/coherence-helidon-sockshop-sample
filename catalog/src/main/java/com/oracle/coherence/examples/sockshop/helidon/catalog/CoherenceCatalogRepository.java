@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,6 +7,7 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.catalog;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.ParameterizedType;
@@ -40,14 +41,11 @@ import com.tangosol.util.extractor.UniversalExtractor;
 import com.tangosol.util.filter.AlwaysFilter;
 import com.tangosol.util.filter.LimitFilter;
 
-import org.eclipse.microprofile.opentracing.Traced;
-
 /**
  * An implementation of {@link CatalogRepository}
  * that that uses Coherence as a backend data store.
  */
 @ApplicationScoped
-@Traced
 public class CoherenceCatalogRepository implements CatalogRepository {
     private static final Logger LOGGER = Logger.getLogger(CoherenceCatalogRepository.class.getName());
     private NamedMap<String, Sock> socks;
@@ -59,6 +57,7 @@ public class CoherenceCatalogRepository implements CatalogRepository {
         this.socks = socks;
     }
 
+    @WithSpan
     @Override
     public Collection<? extends Sock> getSocks(String tags, String order, int pageNum, int pageSize) {
         Comparator<Sock> comparator = "price".equals(order)
@@ -72,16 +71,19 @@ public class CoherenceCatalogRepository implements CatalogRepository {
         return socks.values(filter, comparator);
     }
 
+    @WithSpan
     @Override
     public Sock getSock(String sockId) {
         return socks.get(sockId);
     }
 
+    @WithSpan
     @Override
     public long getSockCount(String tags) {
         return socks.aggregate(createTagsFilter(tags), Aggregators.count());
     }
 
+    @WithSpan
     @Override
     public Set<String> getTags() {
         Collection<Sock> result = socks.values();
@@ -101,6 +103,7 @@ public class CoherenceCatalogRepository implements CatalogRepository {
     /**
      * Load test data into this repository.
      */
+    @WithSpan
     public CatalogRepository loadData() {
         if (socks.isEmpty()) {
             loadSocksFromJson(Sock.class)
@@ -117,6 +120,7 @@ public class CoherenceCatalogRepository implements CatalogRepository {
      * @param <T>     the type to load data as
      * @return a list of socks
      */
+    @WithSpan
     protected <T extends Sock> List<T> loadSocksFromJson(Class<T> asClass) {
         Jsonb jsonb = JsonbBuilder.create();
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("data.json")) {

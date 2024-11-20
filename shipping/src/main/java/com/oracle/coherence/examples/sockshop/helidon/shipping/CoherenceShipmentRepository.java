@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,13 +7,13 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.shipping;
 
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import jakarta.inject.Inject;
 
 import com.oracle.coherence.cdi.Name;
 import com.tangosol.net.NamedMap;
-import org.eclipse.microprofile.opentracing.Traced;
 
 import java.util.Map;
 
@@ -22,7 +22,6 @@ import java.util.Map;
  * that that uses Coherence as a backend data store.
  */
 @ApplicationScoped
-@Traced
 public class CoherenceShipmentRepository implements ShipmentRepository {
     protected Map<String, Shipment> shipments;
 
@@ -32,11 +31,13 @@ public class CoherenceShipmentRepository implements ShipmentRepository {
     }
 
     @Override
+    @WithSpan
     public Shipment getShipment(String orderId) {
         return shipments.get(orderId);
     }
 
     @Override
+    @WithSpan
     public void saveShipment(Shipment shipment) {
         shipments.put(shipment.getOrderId(), shipment);
     }

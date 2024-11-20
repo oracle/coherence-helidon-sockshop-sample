@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2024 Oracle and/or its affiliates.
+  Copyright (c) 2020, 2024, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
@@ -14,7 +14,7 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>3.2.10</version>
+        <version>4.1.3</version>
         <relativePath/>
     </parent>
 
@@ -33,10 +33,11 @@
         <version.lib.coherence>24.09</version.lib.coherence>
         <version.lib.lombok>1.18.36</version.lib.lombok>
         <version.lib.junit>5.11.3</version.lib.junit>
-        <version.lib.hamcrest>3.0</version.lib.hamcrest>
+        <version.lib.hc>3.0</version.lib.hc>
         <version.lib.jandex>3.1.6</version.lib.jandex>
         <version.lib.mockito>3.9.0</version.lib.mockito>
         <version.lib.rest-assured>5.5.0</version.lib.rest-assured>
+        <version.plugin.exec>3.5.0</version.plugin.exec>
         <version.plugin.surefire>3.2.5</version.plugin.surefire>
         <version.plugin.failsafe>3.2.5</version.plugin.failsafe>
         <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
@@ -44,7 +45,6 @@
         <version.plugin.surefire.provider.junit>1.3.2</version.plugin.surefire.provider.junit>
         <version.plugin.jib>3.4.4</version.plugin.jib>
         <version.lib.jaeger>1.8.1</version.lib.jaeger>
-        <version.lib.opentelemetry>1.34.0</version.lib.opentelemetry>
     </properties>
 
     <repositories>
@@ -96,14 +96,6 @@
             <artifactId>helidon-microprofile-grpc-server</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.helidon.microprofile.grpc</groupId>
-            <artifactId>helidon-microprofile-grpc-metrics</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.helidon.tracing</groupId>
-            <artifactId>helidon-tracing-jaeger</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-binding</artifactId>
         </dependency>
@@ -134,14 +126,12 @@
 
         <!-- tracing -->
         <dependency>
-            <groupId>io.jaegertracing</groupId>
-            <artifactId>jaeger-client</artifactId>
-            <version>${version.lib.jaeger}</version>
+            <groupId>io.helidon.microprofile.telemetry</groupId>
+            <artifactId>helidon-microprofile-telemetry</artifactId>
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-sdk</artifactId>
-            <version>${version.lib.opentelemetry}</version>
+            <artifactId>opentelemetry-exporter-jaeger</artifactId>
         </dependency>
 
         <!-- Lombok -->
@@ -150,6 +140,13 @@
             <artifactId>lombok</artifactId>
             <version>${version.lib.lombok}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>io.helidon.logging</groupId>
+            <artifactId>helidon-logging-jul</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- test dependencies -->
@@ -168,7 +165,7 @@
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
-            <version>${version.lib.hamcrest}</version>
+            <version>${version.lib.hc}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -180,6 +177,16 @@
         <dependency>
             <groupId>io.helidon.microprofile.grpc</groupId>
             <artifactId>helidon-microprofile-grpc-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.microprofile.testing</groupId>
+            <artifactId>helidon-microprofile-testing-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.helidon.webserver.testing.junit5</groupId>
+            <artifactId>helidon-webserver-testing-junit5-grpc</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -233,6 +240,29 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>${version.plugin.exec}</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argLine>-Djdk.serialFilter=*;!*</argLine>
+                        <argument>-Dcoherence.wka=127.0.0.1</argument>
+                        <argument>-Dcoherence.grpc.enabled=false</argument>
+                        <argument>-Dcoherence.metrics.http.enabled=true</argument>
+                        <argument>-Dotel.sdk.disabled=false</argument>
+                        <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
+                        <argument>-Dotel.metrics.exporter=none</argument>
+                        <argument>-Dotel.logs.exporter=none</argument>
+                        <argument>-Dotel.traces.exporter=jaeger</argument>
+                        <argument>-Dotel.service.name=Payment</argument>
+                        <argument>-classpath</argument>
+                        <classpath/>
+                        <argument>io.helidon.microprofile.cdi.Main</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
@@ -247,7 +277,7 @@
                         <version>${version.plugin.jib}</version>
                         <configuration>
                             <from>
-                                <image>gcr.io/distroless/java17</image>
+                                <image>gcr.io/distroless/java21-debian12</image>
                             </from>
                             <to>
                                 <image>${container.repo}-${project.artifactId}</image>

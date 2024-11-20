@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -13,9 +13,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
 
-import io.helidon.microprofile.grpc.core.GrpcMarshaller;
-import io.helidon.microprofile.grpc.core.Grpc;
-import io.helidon.microprofile.grpc.core.Unary;
+import io.helidon.grpc.api.Grpc;
 
 import org.eclipse.microprofile.metrics.annotation.Timed;
 
@@ -24,8 +22,8 @@ import org.eclipse.microprofile.metrics.annotation.Timed;
  */
 @ApplicationScoped
 @Path("/shipping")
-@Grpc(name = "ShippingGrpc")
-@GrpcMarshaller("jsonb")
+@Grpc.GrpcService("ShippingGrpc")
+@Grpc.GrpcMarshaller("jsonb")
 @Timed
 public class ShippingResource implements ShippingApi {
     /**
@@ -35,13 +33,13 @@ public class ShippingResource implements ShippingApi {
     private ShipmentRepository shipments;
 
     @Override
-    @Unary
+    @Grpc.Unary
     public Shipment getShipmentByOrderId(String orderId) {
         return shipments.getShipment(orderId);
     }
 
     @Override
-    @Unary
+    @Grpc.Unary
     public Shipment ship(ShippingRequest req) {
         // defaults
         String carrier = "USPS";

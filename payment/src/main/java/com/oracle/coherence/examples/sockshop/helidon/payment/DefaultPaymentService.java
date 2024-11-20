@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+ * Copyright (c) 2020, 2024 Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -7,15 +7,18 @@
 
 package com.oracle.coherence.examples.sockshop.helidon.payment;
 
-import java.time.LocalDateTime;
+import io.opentelemetry.instrumentation.annotations.WithSpan;
 
 import jakarta.enterprise.context.ApplicationScoped;
+
 import jakarta.inject.Inject;
 
+import java.time.LocalDateTime;
+
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import org.eclipse.microprofile.metrics.Counter;
 import org.eclipse.microprofile.metrics.annotation.Metric;
-import org.eclipse.microprofile.opentracing.Traced;
 
 /**
  * Trivial {@link PaymentService} implementation for demo and testing purposes.
@@ -25,7 +28,6 @@ import org.eclipse.microprofile.opentracing.Traced;
  * and declines all requests above that amount.
  */
 @ApplicationScoped
-@Traced
 public class DefaultPaymentService implements PaymentService {
     /**
      * Payment limit
@@ -65,6 +67,7 @@ public class DefaultPaymentService implements PaymentService {
         this.paymentLimit = paymentLimit;
     }
 
+    @WithSpan
     @Override
     public Authorization authorize(String orderId, String firstName, String lastName, Card card, Address address, float amount) {
         boolean fAuthorized = amount > 0 && amount <= paymentLimit;
