@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024, Oracle and/or its affiliates.
+ * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
@@ -9,6 +9,7 @@ package com.oracle.coherence.examples.sockshop.helidon.shipping;
 
 
 import io.grpc.MethodDescriptor;
+import io.helidon.grpc.api.Grpc;
 import io.helidon.grpc.core.MarshallerSupplier;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;
@@ -25,6 +26,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @param <T> the type of value to be marshalled
  */
+@Grpc.GrpcMarshaller
 public class JsonbMarshaller<T>
         implements MethodDescriptor.Marshaller<T>
     {

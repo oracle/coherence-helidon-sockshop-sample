@@ -1,27 +1,22 @@
 /*
- * Copyright (c) 2024, 2025, Oracle and/or its affiliates.
+ * Copyright (c) 2025, Oracle and/or its affiliates.
  *
  * Licensed under the Universal Permissive License v 1.0 as shown at
  * https://oss.oracle.com/licenses/upl.
  */
 
-package com.oracle.coherence.examples.sockshop.helidon.payment;
-
-import io.helidon.grpc.api.Grpc;
-import jakarta.enterprise.context.Dependent;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
-import java.nio.charset.StandardCharsets;
+package com.oracle.coherence.examples.sockshop.helidon.orders;
 
 import io.grpc.MethodDescriptor;
-
+import io.helidon.grpc.api.Grpc;
 import io.helidon.grpc.core.MarshallerSupplier;
-
+import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Named;
-
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 /**
  * An implementation of a gRPC {@link MethodDescriptor.Marshaller} that
