@@ -11,9 +11,13 @@ grpc:
         tls:
           enabled: "false"
       - name: "payment"
+        host: "payment-http"
+        port: 80
         tls:
           enabled: "false"
       - name: "shipping"
+        host: "shipping-http"
+        port: 80
         tls:
           enabled: "false"
 coherence:

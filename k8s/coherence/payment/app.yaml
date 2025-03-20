@@ -40,10 +40,6 @@ spec:
     metrics:
       enabled: true
   ports:
-    - name: grpc
-      port: 1408
-      service:
-        name: payment
     - name: http
       port: 7001
       service:
