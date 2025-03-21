@@ -162,9 +162,8 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
    > $ kubectl port-forward service/jaeger-inmemory-instance-collector --namespace sockshop 16686:16686
    >```
 
-   > Note: to view not just Sockshop traces but also Coherence traces
-   > edit each `app/yaml` in `k8s/coherence/<module>` and set the JVM arg `otel.sdk.disabled` to `false`, and the JVM arg
-   > `coherence.tracing.ratio` to `1`.
+   > Note: to view Sockshop traces, edit each `app.yaml` in `k8s/coherence/<module>` and set the JVM arg `otel.sdk.disabled` to `false`.
+   > To also see Coherence traces, within the same files, set the JVM arg `coherence.tracing.ratio` to `1`.
 
 1. Exercise the Application and access Jaeger
 
