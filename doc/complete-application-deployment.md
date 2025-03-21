@@ -135,42 +135,36 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
 
    Access the application via the endpoint http://coherence.sockshop.mycompany.com/ (or http://localhost:8079)
 
-### Install the Jaeger Operator
+### Install the OpenTelemetry Operator
 
-1. Install the Jaeger Operator
+1. Install the OpenTelemetry Operator
 
-   The Jaeger Operator requires `cert-manager` to be installed. If it's missing, `cert-manager`
+   The OpenTelemetry Operator requires `cert-manager` to be installed. If it's missing, `cert-manager`
    can be installed with the following command:
    ```bash
-   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.2/cert-manager.yaml
+   $ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.2/cert-manager.yaml
    ```
 
-   The command below will create `monitoring` namespace and install Jaeger Operator into it.
-   You only need to do this once, regardless of the number of backends you want to deploy.
+   The command below will install the `OpenTelemetry` operator.
 
     ```bash
-    $ kubectl create -f k8s/optional/jaeger-operator.yaml
+    $ kubectl apply -f https://github.com/open-telemetry/opentelemetry-operator/releases/latest/download/opentelemetry-operator.yaml 
     ```
 
-1. Deploy All-in-One Jaeger Instance
+1. Deploy the `OpenTelemetry` collector
 
-    ```bash
-    $ kubectl create -f k8s/optional/jaeger.yaml --namespace sockshop
-    ```
+   ```bash
+   # deploys to the sockshop namespace
+   $ kubectl apply -f k8s/optional/otel-collector.yaml
+   ```
    > Note: To access Jaeger UI over localhost add port forwarding setup:
    > ```bash
-   > $ kubectl --namespace sockshop port-forward svc/jaeger-query 16686
+   > $ kubectl port-forward service/jaeger-inmemory-instance-collector --namespace sockshop 16686:16686
    >```
 
    > Note: to view not just Sockshop traces but also Coherence traces
-   > edit `application.yaml` and set `coherence.tracing.ratio` to 1.
-   >```yaml
-   > coherence:
-   >   tracing:
-   >     ratio: 1
-   >```
-   > Due to known issues between Coherence and Helidon, Coherence traces will not
-   > be properly associated with the Helidon traces.
+   > edit each `app/yaml` in `k8s/coherence/<module>` and set the JVM arg `otel.sdk.disabled` to `false`, and the JVM arg
+   > `coherence.tracing.ratio` to `1`.
 
 1. Exercise the Application and access Jaeger
 

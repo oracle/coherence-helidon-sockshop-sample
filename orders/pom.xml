@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2020, 2024, Oracle and/or its affiliates.
+  Copyright (c) 2020, 2025, Oracle and/or its affiliates.
 
   Licensed under the Universal Permissive License v 1.0 as shown at
   https://oss.oracle.com/licenses/upl.
@@ -131,7 +131,12 @@
         </dependency>
         <dependency>
             <groupId>io.opentelemetry</groupId>
-            <artifactId>opentelemetry-exporter-jaeger</artifactId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-api-incubator</artifactId>
+            <version>1.37.0-alpha</version>
         </dependency>
 
         <!-- Lombok -->
@@ -241,7 +246,6 @@
                         <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
                         <argument>-Dotel.metrics.exporter=none</argument>
                         <argument>-Dotel.logs.exporter=none</argument>
-                        <argument>-Dotel.traces.exporter=jaeger</argument>
                         <argument>-Dotel.service.name=Orders</argument>
                         <argument>-classpath</argument>
                         <classpath/>

@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# Copyright (c) 2020, 2025 Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
@@ -12,21 +12,10 @@ spec:
   cluster: SockShop
   role: Catalog
   replicas: 1
-  image: ghcr.io/oracle/coherence-helidon-sockshop-catalog:latest
+  image: ghcr.io/oracle/coherence-helidon-sockshop-catalog:2.2.3-SNAPSHOT
   readinessProbe:
     initialDelaySeconds: 10
     periodSeconds: 10
-  env:
-    - name: TRACING_HOST
-      value: "jaeger-collector"
-    - name: JAEGER_SAMPLER_TYPE
-      value: "const"
-    - name: JAEGER_SAMPLER_PARAM
-      value: "1"
-    - name: JAEGER_SERVICE_NAME
-      value: Catalog
-    - name: JAEGER_ENDPOINT
-      value: "http://jaeger-collector:14268/api/traces"
   application:
     type: helidon
   jvm:
@@ -36,6 +25,13 @@ spec:
       - "-Dhelidon.serialFilter.ignoreFiles=true" 
       - "-Dhelidon.serialFilter.pattern=*"
       - "-Dhelidon.serialFilter.failure.action=WARN"
+      - "-Dotel.java.global-autoconfigure.enabled=true"
+      - "-Dotel.service.name=catalog"
+      - "-Dotel.metrics.exporter=none"
+      - "-Dotel.logs.exporter=none"
+      - "-Dotel.exporter.otlp.traces.endpoint=http://jaeger-inmemory-instance-collector:4317"
+      - "-Dotel.sdk.disabled=true"
+      - "-Dcoherence.tracing.ratio=-1"
   coherence:
     metrics:
       enabled: true
