@@ -35,7 +35,7 @@
         <version.lib.junit>5.12.1</version.lib.junit>
         <version.lib.hamcrest>3.0</version.lib.hamcrest>
         <version.lib.jandex>3.1.6</version.lib.jandex>
-        <version.lib.otel.incubator>1.37.0-alpha</version.lib.otel.incubator>
+        <version.lib.otel.incubator>1.48.0-alpha</version.lib.otel.incubator>
         <version.lib.rest-assured>5.5.1</version.lib.rest-assured>
         <version.plugin.exec>3.5.0</version.plugin.exec>
         <version.plugin.surefire>3.2.5</version.plugin.surefire>
