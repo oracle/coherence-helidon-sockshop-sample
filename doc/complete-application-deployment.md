@@ -3,7 +3,7 @@
 * [Additional Pre-Requisites](#additional-pre-requisites)
 * [Install Prometheus and Grafana](#install-prometheus-and-grafana)
 * [Expose Application via a Load Balancer](#expose-application-via-a-load-balancer)
-* [Install the Jaeger Operator](#install-the-jaeger-operator)
+* [Install the OpenTelemetry Operator](#install-the-opentelemetry-operator)
 * [Access Swagger](#access-swagger)
 * [Cleanup](#cleanup)  
 
