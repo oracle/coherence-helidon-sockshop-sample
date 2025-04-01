@@ -1,4 +1,4 @@
-# Copyright 2021, 2023 Oracle Corporation and/or its affiliates.
+# Copyright 2021, 2025, Oracle Corporation and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
 
@@ -36,7 +36,7 @@ jobs:
       - name: Build with Maven
         env:
           MAVEN_OPTS: -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -Dmaven.wagon.http.retryHandler.count=3
-        run: mvn -B install -DskipTests --file pom.xml
+        run: mvn -B install --file pom.xml
 
       - name: Push container images
         env:
