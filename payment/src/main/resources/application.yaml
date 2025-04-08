@@ -15,3 +15,16 @@ coherence:
     enabled: false
   proxy:
     enabled: false
+  tracing:
+    ratio: -1
+otel:
+  sdk:
+    disabled: true
+  service:
+    name: Payment
+  traces:
+    exporter: otlp
+  exporter:
+    otlp:
+      traces:
+        endpoint: http://jaeger-inmemory-instance-collector:4317
