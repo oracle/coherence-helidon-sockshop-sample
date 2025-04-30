@@ -14,7 +14,7 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>4.1.3</version>
+        <version>4.2.1</version>
         <relativePath/>
     </parent>
 
@@ -34,7 +34,7 @@
         <version.lib.bedrock>7.0.6</version.lib.bedrock>
         <version.lib.coherence>25.03.1</version.lib.coherence>
         <version.lib.lombok>1.18.38</version.lib.lombok>
-        <version.lib.junit>5.12.2</version.lib.junit>
+        <version.lib.junit>5.12.1</version.lib.junit>
         <version.lib.hamcrest>3.0</version.lib.hamcrest>
         <version.lib.jandex>3.1.6</version.lib.jandex>
         <version.lib.otel.incubator>1.49.0-alpha</version.lib.otel.incubator>
@@ -104,17 +104,17 @@
 
         <!-- Coherence dependencies -->
         <dependency>
-            <groupId>${coherence.group.id}</groupId>
+            <groupId>com.oracle.coherence.ce</groupId>
             <artifactId>coherence</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
-            <groupId>${coherence.group.id}</groupId>
+            <groupId>com.oracle.coherence.ce</groupId>
             <artifactId>coherence-cdi-server</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
-            <groupId>${coherence.group.id}</groupId>
+            <groupId>com.oracle.coherence.ce</groupId>
             <artifactId>coherence-mp-config</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
@@ -244,6 +244,11 @@
                         <argument>-Dcoherence.wka=127.0.0.1</argument>
                         <argument>-Dcoherence.grpc.enabled=false</argument>
                         <argument>-Dcoherence.metrics.http.enabled=true</argument>
+                        <argument>-Dotel.sdk.disabled=false</argument>
+                        <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
+                        <argument>-Dotel.metrics.exporter=none</argument>
+                        <argument>-Dotel.logs.exporter=none</argument>
+                        <argument>-Dotel.service.name=Orders</argument>
                         <argument>-classpath</argument>
                         <classpath/>
                         <argument>io.helidon.microprofile.cdi.Main</argument>
