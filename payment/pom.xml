@@ -14,7 +14,7 @@
     <parent>
         <groupId>io.helidon.applications</groupId>
         <artifactId>helidon-mp</artifactId>
-        <version>4.1.3</version>
+        <version>4.2.1</version>
         <relativePath/>
     </parent>
 
@@ -28,6 +28,7 @@
         <container.repo>ghcr.io/oracle/coherence-helidon-sockshop</container.repo>
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
+        <coherence.group.id>com.oracle.coherence.ce</coherence.group.id>
 
         <!-- dependencies -->
         <version.lib.coherence>25.03.1</version.lib.coherence>
@@ -103,17 +104,17 @@
 
         <!-- Coherence dependencies -->
         <dependency>
-            <groupId>com.oracle.coherence.ce</groupId>
+            <groupId>${coherence.group.id}</groupId>
             <artifactId>coherence</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle.coherence.ce</groupId>
+            <groupId>${coherence.group.id}</groupId>
             <artifactId>coherence-cdi-server</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
         <dependency>
-            <groupId>com.oracle.coherence.ce</groupId>
+            <groupId>${coherence.group.id}</groupId>
             <artifactId>coherence-mp-config</artifactId>
             <version>${version.lib.coherence}</version>
         </dependency>
@@ -257,11 +258,6 @@
                         <argument>-Dcoherence.wka=127.0.0.1</argument>
                         <argument>-Dcoherence.grpc.enabled=false</argument>
                         <argument>-Dcoherence.metrics.http.enabled=true</argument>
-                        <argument>-Dotel.sdk.disabled=false</argument>
-                        <argument>-Dotel.java.global-autoconfigure.enabled=true</argument>
-                        <argument>-Dotel.metrics.exporter=none</argument>
-                        <argument>-Dotel.logs.exporter=none</argument>
-                        <argument>-Dotel.service.name=Payment</argument>
                         <argument>-classpath</argument>
                         <classpath/>
                         <argument>io.helidon.microprofile.cdi.Main</argument>

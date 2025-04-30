@@ -162,8 +162,19 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
    > $ kubectl port-forward service/jaeger-inmemory-instance-collector --namespace sockshop 16686:16686
    >```
 
-   > Note: to view Sockshop traces, edit each `app.yaml` in `k8s/coherence/<module>` and set the JVM arg `otel.sdk.disabled` to `false`.
-   > To also see Coherence traces, within the same files, set the JVM arg `coherence.tracing.ratio` to `1`.
+1. Edit each `application.yaml` and enable the OpenTelemetry SDK (you will need to rebuild the containers after making this change):
+   ```yaml
+   otel:
+     sdk:
+       disabled: false
+   ```
+   Note: to view not just Sockshop traces but also Coherence traces
+   edit `application.yaml` and set `coherence.tracing.ratio` to 1.
+   ```yaml
+    coherence:
+      tracing:
+        ratio: 1
+   ```
 
 1. Exercise the Application and access Jaeger
 

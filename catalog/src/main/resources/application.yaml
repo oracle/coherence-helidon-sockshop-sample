@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020, 2025 Oracle and/or its affiliates.
+# Copyright (c) 2020, 2025, Oracle and/or its affiliates.
 #
 # Licensed under the Universal Permissive License v 1.0 as shown at
 # https://oss.oracle.com/licenses/upl.
@@ -10,3 +10,16 @@ coherence:
     enabled: false
   proxy:
     enabled: false
+  tracing:
+    ratio: -1
+otel:
+  sdk:
+    disabled: true
+  service:
+    name: Catalog
+  traces:
+    exporter: otlp
+  exporter:
+    otlp:
+      traces:
+        endpoint: http://jaeger-inmemory-instance-collector:4317
