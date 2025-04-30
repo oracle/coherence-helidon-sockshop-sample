@@ -162,6 +162,12 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
    > $ kubectl port-forward service/jaeger-inmemory-instance-collector --namespace sockshop 16686:16686
    >```
 
+1. Edit each `application.yaml` and enable the OpenTelemetry SDK (you will need to rebuild the containers after making this change):
+   ```yaml
+   otel:
+     sdk:
+       disabled: false
+   ```
    Note: to view not just Sockshop traces but also Coherence traces
    edit `application.yaml` and set `coherence.tracing.ratio` to 1.
    ```yaml
