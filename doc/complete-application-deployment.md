@@ -174,6 +174,7 @@ as described in the [Prometheus RBAC](https://prometheus-operator.dev/docs/opera
     coherence:
       tracing:
         ratio: 1
+   ```
 
 1. Exercise the Application and access Jaeger
 
