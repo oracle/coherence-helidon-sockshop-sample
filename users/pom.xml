@@ -29,7 +29,7 @@
         <container.version>${project.version}</container.version>
         <jib.goal>dockerBuild</jib.goal>
 
-        <version.lib.coherence>25.03</version.lib.coherence>
+        <version.lib.coherence>25.03.1</version.lib.coherence>
         <version.lib.lombok>1.18.38</version.lib.lombok>
         <version.lib.junit>5.12.2</version.lib.junit>
         <version.lib.hamcrest>3.0</version.lib.hamcrest>
