@@ -37,7 +37,7 @@
         <version.lib.hc>3.0</version.lib.hc>
         <version.lib.jandex>3.1.6</version.lib.jandex>
         <version.lib.mockito>3.9.0</version.lib.mockito>
-        <version.lib.otel.incubator>1.49.0-alpha</version.lib.otel.incubator>
+        <version.lib.otel.incubator>1.50.0-alpha</version.lib.otel.incubator>
         <version.lib.rest-assured>5.5.1</version.lib.rest-assured>
         <version.plugin.exec>3.5.0</version.plugin.exec>
         <version.plugin.surefire>3.2.5</version.plugin.surefire>
