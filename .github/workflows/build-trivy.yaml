@@ -23,4 +23,4 @@ jobs:
         with:
           scan-type: 'fs'
           exit-code: 1
-          cache: false
+          timeout: 10m0s
