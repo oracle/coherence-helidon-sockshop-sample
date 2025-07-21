@@ -41,7 +41,7 @@
         <version.lib.jandex>3.1.6</version.lib.jandex>
         <version.lib.otel.incubator>1.51.0-alpha</version.lib.otel.incubator>
         <version.lib.rest-assured>5.5.2</version.lib.rest-assured>
-        <version.plugin.exec>3.5.0</version.plugin.exec>
+        <version.plugin.exec>3.5.1</version.plugin.exec>
         <version.plugin.surefire>3.2.5</version.plugin.surefire>
         <version.plugin.failsafe>3.2.5</version.plugin.failsafe>
         <version.plugin.jandex>${version.lib.jandex}</version.plugin.jandex>
