@@ -56,6 +56,16 @@
                 <enabled>true</enabled>
             </releases>
             <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
                 <enabled>true</enabled>
             </snapshots>
         </repository>
@@ -70,6 +80,16 @@
             <url>https://central.sonatype.com/</url>
             <releases>
                 <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
             </releases>
             <snapshots>
                 <enabled>true</enabled>
