@@ -38,7 +38,7 @@
         <version.lib.lombok>1.18.38</version.lib.lombok>
         <version.lib.junit>5.13.4</version.lib.junit>
         <version.lib.hamcrest>3.0</version.lib.hamcrest>
-        <version.lib.jandex>3.1.6</version.lib.jandex>
+        <version.lib.jandex>3.4.0</version.lib.jandex>
         <version.lib.otel.incubator>1.51.0-alpha</version.lib.otel.incubator>
         <version.lib.rest-assured>5.5.2</version.lib.rest-assured>
         <version.plugin.exec>3.5.1</version.plugin.exec>
