@@ -31,7 +31,7 @@
         <coherence.group.id>com.oracle.coherence.ce</coherence.group.id>
 
         <!-- dependencies -->
-        <version.lib.bedrock>7.0.6</version.lib.bedrock>
+        <version.lib.bedrock>7.0.7</version.lib.bedrock>
         <version.lib.coherence>25.03.2</version.lib.coherence>
         <version.lib.lombok>1.18.38</version.lib.lombok>
         <version.lib.junit>5.13.4</version.lib.junit>
